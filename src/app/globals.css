@@ -16,11 +16,22 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --color-black : #000;
   }
 }
 
+@theme {
+  --color-primary: #21007d;
+  --color-secondary:#6b3af8;
+  --color-tertiary : #121212;
+  --color-disable : #696969;
+  --color-success : #00ff00;
+  --color-error : #bc1d42;
+  --font-poppins : Poppins, sans-serif;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--foreground);
+  color: var(--color-black);
+  font-family: var(--font-poppins);
 }
