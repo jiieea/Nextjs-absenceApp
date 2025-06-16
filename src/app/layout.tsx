@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'sekolah.ku',
+  title: 'absensi.ku',
   description: 'Online School Management System',
   icons : {
     icon  : 'favicon.png',
