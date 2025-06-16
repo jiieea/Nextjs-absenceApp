@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import Wrapper from "./_components/organisms/wrapper/Wrapper";
 
 
 const geistSans = Geist({
@@ -29,12 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="icon" href='./_assets/icons/favicon.png' sizes="any" />
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+
+      
+       <Wrapper>{ children }</Wrapper>
+
     </html>
   );
 }

@@ -3,14 +3,12 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { Logo } from '../_assets/icons';
 import { Banner2 } from '../_assets/images';
-import Link from 'next/link';
+import Link from 'next/link'; 
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '@/lib/firebaseClient';
 import { doc, setDoc } from 'firebase/firestore';
 import Modal from '../_components/molecule/modal/modal';
 import { useRouter } from 'next/navigation';
-
-
 
 const RegisterPage = () => {
   const router = useRouter();

@@ -1,44 +1,42 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { NextRequest  } from "next/server";
 
-// private paths 
-export const protectedPaths = ["/dashboard"];
-
-// public paths
+export const protectedPaths = [ "/dashboard " , "/students" , "/attendance"];
 export const publicPaths = ["/login" , "/register"];
 
-export default function middleware  (req: NextRequest) {
-    // get token from cookie
-    const cookieToken = req.cookies.get('token')?.value;
-    const path = req.nextUrl.pathname; // get accesed url 
-    // determine the route is protected
-    const isProtectedRoutePaths = protectedPaths.some((route) => path.startsWith(route)); 
+export default function middleware(req : NextRequest) {
+    // get token
+    const token = req.cookies.get('token')?.value;
+    const path = req.nextUrl.pathname;
+    const isProtectedPath = protectedPaths.some((route) => {
+        path.startsWith(route);
+    });
+    const isPublicPath = publicPaths.some((route) => path.startsWith(route));
 
-    // determine the route is public
-    const isPublicPaths = publicPaths.some((route) => path.startsWith(route));
-
-    if(cookieToken && isPublicPaths)
-{
-    return NextResponse.redirect(new URL('/dashboard' , req.url))
-}
-
-if(!cookieToken && isProtectedRoutePaths) {
-    return NextResponse.redirect(new URL('/login' , req.url))
-}
-
-if(path === "/") {
-    if(cookieToken) {
-        return NextResponse.redirect(new URL('/dashboard' , req.url));
-    }else if(!cookieToken) {
-        return NextResponse.redirect(new URL('/login' , req.url))
+    if(path === "/") {
+        if(token) {
+            return NextResponse.redirect(new URL("/dashboard" , req.url));
+        }else{
+            return NextResponse.redirect(new URL("/login" , req.url))
+        }
     }
+
+    if(token && isPublicPath) {
+        return NextResponse.redirect(new URL('/dashboard'))
+    }
+
+    if(!token && isProtectedPath) {
+        return NextResponse.redirect(new URL('/register' , req.url));
+    }
+
+    return NextResponse.next();
 }
 
-return NextResponse.next();
-
-}
-
-export const mathcer = [
-    "/dashboard/:path*",
-    "/register",
-    "/login"
-]
+export const matcher = [
+    '/students/:path*',
+    '/dashboard/:path*',
+    '/attendance/:path*',
+    '/login',
+    '/register',
+    '/',
+  ];

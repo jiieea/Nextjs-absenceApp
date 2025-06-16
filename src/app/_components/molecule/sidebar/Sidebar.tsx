@@ -76,7 +76,7 @@ function Sidebar() {
 
   return (
     <>
-      <div className="h-screen w-64 font-normal bg-duniakoding-primary fixed py-8 top-20 left-0 flex flex-col gap-10 overflow-y-auto">
+      <div className="h-screen w-64 font-normal bg-primary fixed py-8 top-20 left-0 flex flex-col gap-10 overflow-y-auto">
         {itemsMenu.map((item) => (
           <div className="flex flex-col transition-colors" key={item.category}>
             <p className="text-white text-lg font-semibold px-5">{item.category}</p>
@@ -85,7 +85,7 @@ function Sidebar() {
                 <button
                   onClick={menu.function}
                   className={`${
-                    pathname === menu.href ? 'bg-disable' : ''
+                    pathname === menu.href ? 'bg-amber-200' : ''
                   } flex items-center hover:bg-disable transition-colors px-5 py-3 gap-3 text-white text-lg`}
                   key={menu.name}>
                   {menu.icon && (
@@ -98,7 +98,7 @@ function Sidebar() {
                   href={menu.href}
                   className={`${
                     pathname === menu.href ? 'bg-disable' : ''
-                  } flex items-center hover:bg-disable transition-colors px-5 py-3 gap-3 text-white text-lg`}
+                  } flex items-center hover:bg-pseudo-disable px-5 py-3 gap-3 text-white text-lg`}
                   key={menu.name}>
                   {menu.icon && (
                     <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-white" />

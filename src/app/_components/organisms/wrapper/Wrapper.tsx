@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../../molecule/header/header';
 import Sidebar from '../../molecule/sidebar/Sidebar';
 import { usePathname } from 'next/navigation';
-import { publicPaths } from '@/middleware';
+import { publicPaths } from '@/app/middleware';
 
 interface WrapperProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ function Wrapper(props: Readonly<WrapperProps>) {
   const pathname = usePathname();
   const isPublicPath = publicPaths.includes(pathname);
   return (
-    <body className="font-poppins font-bold text-duniakoding-primary">
+    <body className="font-poppins font-bold text-primary">
       {!isPublicPath && (
         <>
           <Header />

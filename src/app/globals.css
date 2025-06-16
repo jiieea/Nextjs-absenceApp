@@ -16,7 +16,8 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --color-black : #000;
+    --color-black : #000;  
+   
   }
 }
 
@@ -28,6 +29,7 @@
   --color-pseudo-disable: #555555;
   --color-success : #00ff00;
   --color-error : #bc1d42;
+  --color-vague : #928BF4
   --font-poppins : Poppins, sans-serif;
 }
 

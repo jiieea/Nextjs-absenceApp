@@ -21,14 +21,14 @@ function Header() {
       <div className="flex items-center gap-4">
         <Image src={Logo} alt="Logo" width={60} height={60} />
         <div className="flex flex-col">
-          <p className="text-2xl">SekolahKu</p>
-          <p className="text-xs text-primary">Sekolahku, Sekolahmu, Sekolah kita semua</p>
+          <p className="text-2xl">absensi.ku</p>
+          <p className="text-xs text-primary">Absensi Cepat, Kuliah Lancar! </p>
         </div>
       </div>
       <div>
         <p className="text-primary text-sm font-normal">
           Halo,{' '}
-          <span className="text-duniakoding-primary font-semibold">
+          <span className="text-primary font-semibold">
             {displayName || 'Unknown User'}
           </span>{' '}
         </p>
