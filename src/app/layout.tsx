@@ -29,8 +29,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
-      
        <Wrapper>{ children }</Wrapper>
 
     </html>

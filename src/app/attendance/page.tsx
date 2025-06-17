@@ -2,7 +2,8 @@ import React from 'react'
 
  const AttendancePage = () => {
   return (
-    <div>AttendancePage</div>
+    <div className="flex flex-col ">
+    </div>
   )
 }
 
