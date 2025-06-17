@@ -1,9 +1,11 @@
 'use client';
 import React from 'react';
 import Header from '../../molecule/header/header';
-import Sidebar from '../../molecule/sidebar/Sidebar';
+
 import { usePathname } from 'next/navigation';
-import { publicPaths } from '@/app/middleware';
+import { publicPaths } from '@/middleware';
+import Sidebar from  '../../molecule/sidebar/Sidebar';
+
 
 interface WrapperProps {
   children: React.ReactNode;

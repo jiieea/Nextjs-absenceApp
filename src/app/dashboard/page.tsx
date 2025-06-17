@@ -1,9 +1,32 @@
-import React from 'react'
+"use client"
 
- const Dashboard = () => {
+import React, { useState } from 'react'
+
+const Dashboard = () => {
+  const [selectedDate, setSelectedDate] = useState('')
+  // get today in WIB
+  const getTimeInWib = () => {
+    const now = new Date();
+    const offSetInMs = 7 * 60 * 60 * 1000; // UTC+7l
+    const wibDate = new Date(now.getTime() + offSetInMs);
+    return wibDate.toISOString().split('T')[0];
+  }
+
+  const today = getTimeInWib();
   return (
-<div></div>
+    <div className='p-10 max-w-2xl space-y-7'>
+      <h1 className="text-pseudo-disable text-2xl">Rekap Kehadiran Siswa</h1>
+      <div className="flex flex-col md:flex-row gap-3.5 mt-4">
+        {/* date input */}
+        <input type="date" placeholder='pilih tanggal'
+          className='border rounded-lg border-zinc-500 p-2 placeholder: font-light '
+          max={today}
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+        />
+      </div>
+    </div>
   )
 }
 
-export default  Dashboard
+export default Dashboard

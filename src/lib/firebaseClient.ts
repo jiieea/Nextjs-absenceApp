@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { getApps, initializeApp , getApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {  getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -9,17 +9,21 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAMlrOpHFUVdf9o86Dl5Zq5Qv8oNTJVGdY",
-  authDomain: "class-attendence-14a62.firebaseapp.com",
-  projectId: "class-attendence-14a62",
-  storageBucket: "class-attendence-14a62.firebasestorage.app",
-  messagingSenderId: "825381034972",
-  appId: "1:825381034972:web:8c2912d67cfbd6000bcd19",
-  measurementId: "G-NEX3W9SZ9T"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET!,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_ID!,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASSUREMENT_ID!
 };
 
+const app = !getApps.length ? initializeApp(firebaseConfig) : getApp();
+let analytics;
+if(typeof window !== "undefined") {
+  analytics = getAnalytics(app)}
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+export { analytics } 
 export const db = getFirestore()
 export const auth = getAuth();
