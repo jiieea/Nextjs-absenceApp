@@ -1,17 +1,64 @@
 "use client"
 
+import { db } from '@/lib/firebaseClient';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import React, { useState } from 'react'
+import Modal from '../_components/molecule/modal/modal';
+import { useRouter } from 'next/navigation';
 
-const kelasMahasiswa = ["RZ", "RY", "RW", "RU"];
+
+export const kelasMahasiswa = ["RZ", "RY", "RW", "RU"];
 
 const Attendance = () => {
+  const router = useRouter()
   const [grade, setGrade] = useState("");
+  const [showModal, setShowModal] = useState(false)
   const [name, setName] = useState("")
-  const [npm, setNpm] = useState("")
+  const [npm, setNpm] = useState("");
+  const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  // format phone number 
+  const formatPhoneNumber = (phone: string) => {
+    if (phone.startsWith('0')) {
+      return '62' + phone.slice(1);
+    }
+    return phone;
+  };
 
-  const handleSubmitData = (e: React.FormEvent) => {
+
+
+  const handleSubmitData = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Berhasil tambah data ${name} dengan npm ${npm}`)
+
+    setLoading(true);
+    try {
+      const ref = doc(db, 'students', npm);
+      const existing = await getDoc(ref);
+
+      if (existing.exists()) {
+        setError("Data NPM Sudah Ada");
+        return;
+      }
+
+      await setDoc(ref, {
+        name,
+        npm,
+        grade,
+        phoneNumber: formatPhoneNumber(phone)
+      })
+
+      setShowModal(true);
+      setName("");
+      setGrade("")
+      setPhone("");
+      setNpm("")
+
+    } catch (e: any) {
+      setError(e.message ?? "Gagal menambahkan data baru")
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -46,10 +93,25 @@ const Attendance = () => {
             ))}
           </select>
           <label htmlFor="phone" className='font-bold text-primary'>Masukan Nomer Hp Mahasiswa</label>
-          <input type="number" className='px-4 py-3 border rounded-lg placeholder:text-disable font-normal' placeholder='max 13 digit, diawali dengan 0' />
+          <input type="number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className='px-4 py-3 border rounded-lg placeholder:text-disable font-normal' placeholder='max 13 digit, diawali dengan 0' />
         </div>
         <button type='submit' className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3 mt-3'>Simpan Data</button>
       </form>
+      <Modal 
+        title='Berhasil'
+        content='Berhasil Tambah Data Baru'
+        type='success'
+        isOpen = {showModal}
+        buttonText1='Lanjut'
+        buttonType1='primary'
+            buttonText2='Tutup'
+            buttonType2='secondary'
+            onConfirm={() => setShowModal(false)}
+            onClose={() => router.push('/attendance')}
+      />
     </div>
   )
 }
