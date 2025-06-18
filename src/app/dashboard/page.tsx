@@ -31,7 +31,9 @@ const Dashboard = () => {
           onChange={(e) => setSelectedDate(e.target.value)}
         />
 
-        <select className='border rounded-lg border-zinc-500 p-2 placeholder: font-light w-40'>
+        <select
+        id='class'
+        className='border rounded-lg border-zinc-500 p-2 placeholder: font-light w-40'>
           <option className='text-disable' value="">Pilih Kelas
           </option>
           {
