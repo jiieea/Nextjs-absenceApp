@@ -16,6 +16,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("")
+  
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);

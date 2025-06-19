@@ -26,8 +26,6 @@ const Attendance = () => {
     return phone;
   };
 
-
-
   const handleSubmitData = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -98,7 +96,16 @@ const Attendance = () => {
             onChange={(e) => setPhone(e.target.value)}
             className='px-4 py-3 border rounded-lg placeholder:text-disable font-normal' placeholder='max 13 digit, diawali dengan 0' />
         </div>
-        <button type='submit' className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3 mt-3'>Simpan Data</button>
+        {
+          error && (
+            <p className='font-normal text-error'>{ error }</p>
+          )
+        }
+        <button type='submit' className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3 mt-3'>
+          {
+            loading ? "Mohon Tunnggu" : "Tambah Data"
+          }
+        </button>
       </form>
       <Modal 
         title='Berhasil'

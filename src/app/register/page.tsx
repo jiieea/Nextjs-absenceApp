@@ -18,6 +18,8 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false)
+
+  
   // handle button submit
   const handleSubmitButton = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,7 +51,7 @@ const RegisterPage = () => {
   return (
     <>
       <div className='w-screen h-screen flex justify-between '>
-        <div className='w-2/3 flex flex-col h-full p-16 gap-16 md:gap-5 p-10'>
+        <div className='w-2/3 flex flex-col h-full p-16 gap-16 md:gap-5 '>
           <div className='flex items-center  gap-4 md:w-xs'>
             <Image src={Logo} alt='logo' width={120} height={120} />
             <div className="flex-col">
@@ -66,7 +68,7 @@ const RegisterPage = () => {
             <div className='flex flex-col gap-2 mb-2 '>
               <label htmlFor="name" className='font-bold text-primary'>Nama</label>
               <input type="text" placeholder='masukan nama anda ..' value={name} onChange={(e) => setName(e.target.value)}
-                className="border px-4 py-3 md:border px-2 py-2 w-full border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm" />
+                className="border px-4 py-3 md:border w-full border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm" />
             </div>
             <div className="flex flex-col gap-2 mb-2">
               <label htmlFor="email" className='text-primary font-bold'>Email</label>
