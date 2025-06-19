@@ -29,7 +29,7 @@ const AttendancePage = () => {
   const getCurrentTime = () => {
     const dateNow = new Date();
     const offSetInMs = 7 * 60 * 60 * 1000;
-    const wibDate = new Date(dateNow.getDate() + offSetInMs);
+    const wibDate = new Date(dateNow.getTime() + offSetInMs);
     return wibDate.toISOString().split('T')[0];
   }
 
@@ -96,7 +96,7 @@ const AttendancePage = () => {
         <div className="max-w-2/5 flex flex-col gap-4 ">
           <label htmlFor="class" className='font-bold text-primary '> Kelas</label>
           <select name="class" id="class" className='border 
-          rounded-lg border-zinc-500 p-2 w-2xs  placeholder: font-normal '
+          rounded-lg border-zinc-500 p-2 w-2xs placeholder: font-normal '
             required
             value={selectedGrade}
             onChange={(e) => setSelectedGrade(e.target.value)}

@@ -18,6 +18,7 @@ const Attendance = () => {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  
   // format phone number 
   const formatPhoneNumber = (phone: string) => {
     if (phone.startsWith('0')) {
