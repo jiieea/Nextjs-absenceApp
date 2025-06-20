@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { Logo } from '../_assets/icons';
 import { Banner2 } from '../_assets/images';
-import Link from 'next/link'; 
+import Link from 'next/link';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '@/lib/firebaseClient';
 import { doc, setDoc } from 'firebase/firestore';
 import Modal from '../_components/molecule/modal/modal';
 import { useRouter } from 'next/navigation';
+import Loader from '../_components/molecule/Loader';
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -19,7 +21,7 @@ const RegisterPage = () => {
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false)
 
-  
+
   // handle button submit
   const handleSubmitButton = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,46 +53,65 @@ const RegisterPage = () => {
   return (
     <>
       <div className='w-screen h-screen flex justify-between '>
-        <div className='w-2/3 flex flex-col h-full p-16 gap-16 md:gap-5 '>
+        <div className='w-2/3 flex flex-col h-full p-16 gap-16 md:gap-4 '>
           <div className='flex items-center  gap-4 md:w-xs'>
-            <Image src={Logo} alt='logo' width={120} height={120} />
+            <Image src={Logo} alt='logo' width={120} height={120} className='md: w-20' />
             <div className="flex-col">
-              <p className='font-bold text-3xl text-primary '>Absensi-Ku</p>
-              <p className='text-disable font-bold'>Absensi Cepat, Kuliah Lancar! </p>
+              <p className='font-bold text-3xl text-primary  md:text-2xl'>Absensi-Ku</p>
+              <p className='text-disable font-bold '>Absensi Cepat, Kuliah Lancar! </p>
             </div>
           </div>
           {/* form input  */}
           <form onSubmit={handleSubmitButton} className='mt-16 md:mt-1'>
-            <div className='mb-3.5'>
-              <h1 className='font-bold text-2xl text-pseudo-disable md:text-base'>Daftar <br /> ke Absensi.ku</h1>
+            <div className='mb-3.5 md:mb-1'>
+              <h1 className='font-bold text-2xl text-pseudo-disable md:text-base '>Daftar <br /> ke Absensi.ku</h1>
             </div>
             {/* input  */}
             <div className='flex flex-col gap-2 mb-2 '>
-              <label htmlFor="name" className='font-bold text-primary'>Nama</label>
-              <input type="text" placeholder='masukan nama anda ..' value={name} onChange={(e) => setName(e.target.value)}
-                className="border px-4 py-3 md:border w-full border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm" />
+              <label htmlFor="name" className='font-bold text-primary md:text-sm'>Nama</label>
+              <input
+                type="text"
+                placeholder='masukan nama anda ..'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="border px-4 py-3  border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm
+                md:p-2
+                " />
             </div>
             <div className="flex flex-col gap-2 mb-2">
-              <label htmlFor="email" className='text-primary font-bold'>Email</label>
+              <label htmlFor="email" className='text-primary font-bold md:text-sm'>Email</label>
               <input
                 type="email"
-                className="border px-4 py-3 w-full border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm" placeholder='masukan email  '
+                className="border px-4 py-3 w-full border-disable rounded-lg md:p-2
+                 placeholder:text-disable placeholder:font-light text-sm "
+                placeholder='masukan email  '
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-2 mb-2">
-              <label htmlFor="email" className='text-primary font-bold'>Password</label>
-              <input type="password" className="border px-4 py-3 w-full border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm" placeholder='masukan password '
+              <label htmlFor="email" className='text-primary font-bold md:text-sm'>Password</label>
+              <input
+                type="password"
+                className="border px-4 py-3 w-full
+                 border-disable rounded-lg placeholder:text-disable 
+                 placeholder:font-light text-sm md:p-2"
+                placeholder='masukan password '
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>
             {error && <p className="text-error text-sm">{error}</p>}
             <div className="flex flex-col gap-2 ">
-              <button className='bg-primary rounded-2xl p-3 mt-5 text-white font-bold cursor-pointer' type='submit'>
+              <button
+                className='bg-primary rounded-2xl p-3 mt-5 text-white font-bold cursor-pointer md:p-2'
+                type='submit'>
                 {
-                  loading ? "mohon tunggu" : "daftar"
+                  loading ? (
+                    <Loader />
+                  ) : (
+                    "Daftar"
+                  )
                 }
               </button>
             </div>

@@ -36,14 +36,13 @@ const Dashboard = () => {
 
 
   // fetch data students
-  useEffect(() => {
-    const handleFetchStudentsData = async () => {
-      const fetchData = await getDocs(collection(db, 'students'));
-      const uniqueGrades = Array.from(new Set(fetchData.docs.map((std) => std.data().grade)))
-      setGrades(uniqueGrades.sort());
-    };
-    handleFetchStudentsData();
-  },[]);
+  const handleFetchStudentsData = async () => {
+    const fetchData = await getDocs(collection(db, 'students'));
+    const uniqueGrades = Array.from(new Set(fetchData.docs.map((std) => std.data().grade)))
+    setGrades(uniqueGrades.sort());
+  };
+  handleFetchStudentsData();
+
 
   const today = getTimeInWib();
 
@@ -89,12 +88,12 @@ const Dashboard = () => {
         <select
           id='class'
           value={selectedGrade}
-          disabled = {!selectedDate}
+          disabled={!selectedDate}
           onChange={(e) => setSelectedGrade(e.target.value)}
           className='border rounded-lg border-zinc-500 p-2 placeholder: font-light w-40'>
           <option className='text-disable' value="">{
             !selectedDate ? "Pilih Tanggal dulu" : "Pilih Kelas"
-            }
+          }
           </option>
           {
             grades.map((grade) => (
@@ -106,50 +105,57 @@ const Dashboard = () => {
         </select>
 
         <div className="w-40">
-          <button className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3' 
-          onClick={handleFetchAttendance}
-          disabled = {!selectedDate || !selectedGrade  || loading}
+          <button className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3'
+            onClick={handleFetchAttendance}
+            disabled={!selectedDate || !selectedGrade || loading}
           >{
-            loading ?  "sedang memuat" : 'tampilkan'
-          }</button>
+              loading ? "sedang memuat" : 'tampilkan'
+            }</button>
         </div>
 
-      
+
       </div>
       {
-          dataLoaded && (
-            <>
-              {
-               attendance.length === 0 ? (
+        dataLoaded && (
+          <>
+            {
+              attendance.length === 0 ? (
                 <p className='text-error font-normal '>data tidak ada </p>
-               ) : (
+              ) : (
                 <table className="w-full mt-6 border text-left">
-                <thead className="bg-primary text-white">
-                  <tr>
-                    <th className="p-2">Nama</th>
-                    <th className="p-2">Nomor Induk</th>
-                    <th className="p-2">Kelas</th>
-                    <th className="p-2">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {attendance.map((a) => (
-                    <tr key={a.npm}>
-                      <td className="p-2 border">{a.name}</td>
-                      <td className="p-2 border">{a.npm}</td>
-                      <td className="p-2 border">{a.grade}</td>
-                      <td className= {
-                        a.status === "Sakit" || a.status === "Alpha" ? "text-error p-2 border" : "text-success p-2 border"
-                      }>{a.status}</td>
+                  <thead className="bg-primary text-white">
+                    <tr>
+                      <th className="p-2">Nama</th>
+                      <th className="p-2">Nomor Pokok</th>
+                      <th className="p-2">Kelas</th>
+                      <th className="p-2">Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-               )
-              }
-            </>
-          )
-        }
+                  </thead>
+                  <tbody>
+                    {attendance.map((a) => (
+                      <tr key={a.npm}>
+                        <td className="p-2 border">{a.name}</td>
+                        <td className="p-2 border">{a.npm}</td>
+                        <td className="p-2 border">{a.grade}</td>
+                        <td className="p-2 border">
+                          <p className=
+                          {
+                            a.status === "Sakit" || a.status === "Alpha" ? "text-error p-2 border-black "
+                            : a.status === "Ijin Keperluan Pribadi" ?
+                              "text-warning border-black " :
+                              "text-success border-black "
+                          }
+                          >{a.status}</p>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )
+            }
+          </>
+        )
+      }
     </div>
   )
 }

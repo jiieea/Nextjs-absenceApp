@@ -17,7 +17,7 @@
     --background: #0a0a0a;
     --foreground: #ededed;
     --color-black : #000;  
-   
+   --color-white : #fff;
   }
 }
 
@@ -29,7 +29,8 @@
   --color-pseudo-disable: #555555;
   --color-success : #00ff00;
   --color-error : #bc1d42;
-  --color-vague : #a0a0a0
+  --color-warning : #eee600;
+  --color-vague : #a0a0a0;
   --font-poppins : Poppins, sans-serif;
 }
 
@@ -37,4 +38,43 @@ body {
   background: var(--foreground);
   color: var(--color-black);
   font-family: var(--font-poppins);
+}
+
+/* From Uiverse.io by rushik0507 */ 
+.spinner {
+  width: 1.25em;
+  transform-origin: center;
+  animation: rotate4 2s linear infinite;
+}
+
+.loader {
+  fill: none;
+  stroke: #ededed;
+  stroke-width: 10;
+  stroke-dasharray: 2, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash4 {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dashoffset: -125px;
+  }
 }

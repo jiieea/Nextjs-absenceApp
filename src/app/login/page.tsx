@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { Logo } from '../_assets/icons'
 import { Banner1 } from '../_assets/images'
-import {  signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/lib/firebaseClient'
-import {  setCookie } from 'cookies-next'
+import { setCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation'
+import Loader from '../_components/molecule/Loader'
 
 
 const LoginPage = () => {
@@ -16,7 +18,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("")
-  
+
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
@@ -39,9 +41,11 @@ const LoginPage = () => {
     <div className='w-screen h-screen flex justify-between '>
       <div className='w-2/5  flex flex-col h-full p-16 gap-16 md:gap-2' >
         <div className='flex items-center  gap-4'>
-          <Image src={Logo} alt='logo' width={120} height={120} />
+          <Image src={Logo} alt='logo' width={120} height={120}
+            className='md:w-20'
+          />
           <div className="flex-col">
-            <p className='font-bold text-3xl text-primary'>Absensi-Ku</p>
+            <p className='font-bold text-3xl text-primary md:text-2xl  '>Absensi-Ku</p>
             <p className='text-disable font-bold'>Absensi Cepat, Kuliah Lancar! </p>
           </div>
         </div>
@@ -52,29 +56,37 @@ const LoginPage = () => {
           </div>
           {/* input  */}
           <div className="flex flex-col gap-2 mb-2">
-            <label htmlFor="email" className='text-primary font-bold'>Email</label>
+            <label htmlFor="email" className='text-primary font-bold md:text-sm'>Email</label>
             <input
               type="email"
-              className="border px-4 py-3 w-full border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm" placeholder='masukan email  '
+              className="border px-4 py-3 w-full
+               border-disable rounded-lg
+                placeholder:text-disable 
+                placeholder:font-light text-sm md:p-3"
+              placeholder='masukan email  '
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="flex flex-col gap-2 mb-2">
             <label htmlFor="email" className='text-primary font-bold'>Password</label>
-            <input 
-            type="password" 
-            className="border px-4 py-3 w-full border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm"
-             placeholder='masukan password  '
-             value={password}
-             onChange={(e) => setPassword(e.target.value)}
-             />
+            <input
+              type="password"
+              className="border px-4 py-3 w-full border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm"
+              placeholder='masukan password  '
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div className="flex flex-col gap-2 ">
             <p className='text-error'>{error}</p>
             <button className='bg-primary rounded-2xl p-3 mt-5 text-white font-bold  cursor-pointer' type='submit'>
               {
-                loading ? "Mohon tunggu.." : "Masuk"
+                loading ? (
+                  <Loader />
+                ) : (
+                  "Masuk"
+                )
               }
             </button>
           </div>
