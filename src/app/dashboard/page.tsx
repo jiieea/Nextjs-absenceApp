@@ -4,6 +4,7 @@ import { db } from '@/lib/firebaseClient';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import React, {  useEffect, useState } from 'react'
 import Loader from '../_components/molecule/Loader';
+import { Button } from '@/components/ui/button';
 
 interface Students {
   npm: string,
@@ -99,7 +100,7 @@ useEffect(() => {
           disabled={!selectedDate}
           onChange={(e) => setSelectedGrade(e.target.value)}
           className='border rounded-lg border-zinc-500 p-2 placeholder: font-light w-40'>
-          <option className='text-disable' value="">{
+          <option className='text-disable text-xs' value="">{
             !selectedDate ? "Pilih Tanggal dulu" : "Pilih Kelas"
           }
           </option>
@@ -118,18 +119,10 @@ useEffect(() => {
             )
           }
         <div className="w-40">
-          <button 
-          className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3'
-            onClick={handleFetchAttendance}
-            disabled={!selectedDate || !selectedGrade || loading}
-          >{
-             loading ? (
-              <Loader /> 
-             ) : (
-              "Tampilkan"
-             )
-            }
-            </button>
+          <Button variant='outline' onClick={handleFetchAttendance} 
+          className='px-3 py-2   w-full'
+            disabled = {!selectedDate && loading }
+          >Tampilkan</Button>
         </div>
 
 
