@@ -2,7 +2,8 @@
 
 import { db } from '@/lib/firebaseClient';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
+import Loader from '../_components/molecule/Loader';
 
 interface Students {
   npm: string,
@@ -24,6 +25,7 @@ const Dashboard = () => {
   const [dataLoaded, setDataLoaded] = useState(false)
   const [loading, setLoading] = useState(false);
   const [attendance, setAttendance] = useState<AttendanceStudent[]>([]);
+  const [ error , setError ] = useState("")
 
 
   // get today in WIB
@@ -36,12 +38,14 @@ const Dashboard = () => {
 
 
   // fetch data students
+useEffect(() => {
   const handleFetchStudentsData = async () => {
     const fetchData = await getDocs(collection(db, 'students'));
     const uniqueGrades = Array.from(new Set(fetchData.docs.map((std) => std.data().grade)))
     setGrades(uniqueGrades.sort());
   };
   handleFetchStudentsData();
+})
 
 
   const today = getTimeInWib();
@@ -51,7 +55,8 @@ const Dashboard = () => {
 
     setLoading(true);
     setDataLoaded(false);
-    const snapshot = await getDocs(collection(db, 'students'));
+    try {
+      const snapshot = await getDocs(collection(db, 'students'));
     const filteredStudents = snapshot.docs
       .map((doc) => doc.data() as Students)
       .filter((student) => student.grade === selectedGrade);
@@ -72,6 +77,9 @@ const Dashboard = () => {
     setAttendance(attendanceResults);
     setLoading(false);
     setDataLoaded(true);
+    }catch(e:any) {
+      setError(e.message)
+    }
   };
   return (
     <div className='p-10 max-w-2xl space-y-7'>
@@ -101,16 +109,27 @@ const Dashboard = () => {
                 {grade}
               </option>
             ))
+
           }
         </select>
-
+          {
+            error && (
+              <p className='text-error font-semibold'>{ error }</p>
+            )
+          }
         <div className="w-40">
-          <button className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3'
+          <button 
+          className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3'
             onClick={handleFetchAttendance}
             disabled={!selectedDate || !selectedGrade || loading}
           >{
-              loading ? "sedang memuat" : 'tampilkan'
-            }</button>
+             loading ? (
+              <Loader /> 
+             ) : (
+              "Tampilkan"
+             )
+            }
+            </button>
         </div>
 
 

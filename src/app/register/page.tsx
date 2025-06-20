@@ -11,6 +11,8 @@ import { doc, setDoc } from 'firebase/firestore';
 import Modal from '../_components/molecule/modal/modal';
 import { useRouter } from 'next/navigation';
 import Loader from '../_components/molecule/Loader';
+import { errorMsg } from '@/lib/errorMsg';
+
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -39,15 +41,17 @@ const RegisterPage = () => {
         email,
         role: 'guru'
       });
+
       setShowModal(true);
       setName('');
       setEmail('');
       setPassword('');
     } catch (e: any) {
-      setError(e.message ?? 'registrasi gagal ')
+      const err = errorMsg(e.message);
+      if (err && err[1])
+        setError(err[1])
     } finally {
       setLoading(false)
-
     }
   }
   return (
@@ -55,42 +59,42 @@ const RegisterPage = () => {
       <div className='w-screen h-screen flex justify-between '>
         <div className='w-2/3 flex flex-col h-full p-16 gap-16 md:gap-4 '>
           <div className='flex items-center  gap-4 md:w-xs'>
-            <Image src={Logo} alt='logo' width={120} height={120} className='md: w-20' />
+            <Image src={Logo} alt='logo' className='lg:w-28 md:w-20' />
             <div className="flex-col">
-              <p className='font-bold text-3xl text-primary  md:text-2xl'>Absensi-Ku</p>
+              <p className='font-bold lg:text-3xl text-primary  md:text-2xl'>Absensi-Ku</p>
               <p className='text-disable font-bold '>Absensi Cepat, Kuliah Lancar! </p>
             </div>
           </div>
           {/* form input  */}
           <form onSubmit={handleSubmitButton} className='mt-16 md:mt-1'>
-            <div className='mb-3.5 md:mb-1'>
-              <h1 className='font-bold text-2xl text-pseudo-disable md:text-base '>Daftar <br /> ke Absensi.ku</h1>
+            <div className='xl:mb-3.5 md:mb-1'>
+              <h1 className='font-bold lg:text-2xl text-pseudo-disable md:text-base '>Daftar <br /> ke Absensi.ku</h1>
             </div>
             {/* input  */}
-            <div className='flex flex-col gap-2 mb-2 '>
-              <label htmlFor="name" className='font-bold text-primary md:text-sm'>Nama</label>
+            <div className='flex flex-col gap-4 mb-3 '>
+              <label htmlFor="name" className='font-bold text-normal text-primary'>Nama</label>
               <input
                 type="text"
                 placeholder='masukan nama anda ..'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="border px-4 py-3  border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm
-                md:p-2
+                className="lg:border px-4 py-3  border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm
+                md:px-3 
                 " />
             </div>
-            <div className="flex flex-col gap-2 mb-2">
-              <label htmlFor="email" className='text-primary font-bold md:text-sm'>Email</label>
+            <div className="flex flex-col gap-2 mb-3">
+              <label htmlFor="email" className='lg: text-normal text-primary font-bold '>Email</label>
               <input
                 type="email"
-                className="border px-4 py-3 w-full border-disable rounded-lg md:p-2
+                className="lg:border px-5 py-3 md:px-3 w-full border-disable rounded-lg 
                  placeholder:text-disable placeholder:font-light text-sm "
                 placeholder='masukan email  '
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="flex flex-col gap-2 mb-2">
-              <label htmlFor="email" className='text-primary font-bold md:text-sm'>Password</label>
+            <div className="flex flex-col gap-2 mb-3">
+              <label htmlFor="email" className='text-primary font-bold text-normal'>Password</label>
               <input
                 type="password"
                 className="border px-4 py-3 w-full
@@ -104,7 +108,7 @@ const RegisterPage = () => {
             {error && <p className="text-error text-sm">{error}</p>}
             <div className="flex flex-col gap-2 ">
               <button
-                className='bg-primary rounded-2xl p-3 mt-5 text-white font-bold cursor-pointer md:p-2'
+                className='bg-primary rounded-2xl p-3 mt-5 text-white font-bold cursor-pointer'
                 type='submit'>
                 {
                   loading ? (

@@ -54,9 +54,12 @@ const Attendance = () => {
       setNpm("")
 
     } catch (e: any) {
-      setError(e.message ?? "Gagal menambahkan data baru")
+      if(!npm && !grade && !name) {
+        setError("Data Harus Diisi")
+      }
     } finally {
       setLoading(false);
+
     }
   }
 
@@ -99,7 +102,7 @@ const Attendance = () => {
         </div>
         {
           error && (
-            <p className='font-normal text-error'>{ error }</p>
+            <p className='font-semibold text-error'>{ error }</p>
           )
         }
         <button type='submit' className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3 mt-3'>

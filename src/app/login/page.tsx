@@ -10,6 +10,7 @@ import { auth } from '@/lib/firebaseClient'
 import { setCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation'
 import Loader from '../_components/molecule/Loader'
+import { errorMsg } from '@/lib/errorMsg'
 
 
 const LoginPage = () => {
@@ -32,7 +33,9 @@ const LoginPage = () => {
 
       router.push("/dashboard");
     } catch (e: any) {
-      setError(e.message ?? "gagal login")
+      const err = errorMsg(e.message);
+      if(err && err[1])
+        setError(err[1])
     } finally {
       setLoading(false)
     }
@@ -41,22 +44,22 @@ const LoginPage = () => {
     <div className='w-screen h-screen flex justify-between '>
       <div className='w-2/5  flex flex-col h-full p-16 gap-16 md:gap-2' >
         <div className='flex items-center  gap-4'>
-          <Image src={Logo} alt='logo' width={120} height={120}
-            className='md:w-20'
+          <Image src={Logo} alt='logo' 
+            className='md:w-20 lg:w-28'
           />
           <div className="flex-col">
-            <p className='font-bold text-3xl text-primary md:text-2xl  '>Absensi-Ku</p>
+            <p className='font-bold lg:text-3xl text-primary md:text-2xl  '>Absensi-Ku</p>
             <p className='text-disable font-bold'>Absensi Cepat, Kuliah Lancar! </p>
           </div>
         </div>
         {/* form input  */}
-        <form className='mt-16 md:mt-5' onSubmit={handleLogin}>
+        <form className='mt-16 md:mt-5 space-y-3' onSubmit={handleLogin}>
           <div className='mb-3.5'>
-            <h1 className='font-bold text-2xl text-pseudo-disable md:text-base'>Masuk <br /> ke Absensi.ku</h1>
+            <h1 className='font-bold lg:text-xl text-pseudo-disable md:text-base'>Masuk <br /> ke Absensi.ku</h1>
           </div>
           {/* input  */}
-          <div className="flex flex-col gap-2 mb-2">
-            <label htmlFor="email" className='text-primary font-bold md:text-sm'>Email</label>
+          <div className="flex flex-col gap-4 mb-2">
+            <label htmlFor="email" className='text-primary font-bold text-normal'>Email</label>
             <input
               type="email"
               className="border px-4 py-3 w-full
@@ -69,7 +72,7 @@ const LoginPage = () => {
             />
           </div>
           <div className="flex flex-col gap-2 mb-2">
-            <label htmlFor="email" className='text-primary font-bold'>Password</label>
+            <label htmlFor="email" className='text-primary  lg:text-normal  font-bold'>Password</label>
             <input
               type="password"
               className="border px-4 py-3 w-full border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm"
