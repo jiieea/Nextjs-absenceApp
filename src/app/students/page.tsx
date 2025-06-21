@@ -5,7 +5,15 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import React, { useState } from 'react'
 import Modal from '../_components/molecule/modal/modal';
 import { useRouter } from 'next/navigation';
-
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export const kelasMahasiswa = ["RZ", "RY", "RW", "RU"];
 
@@ -17,8 +25,12 @@ const Attendance = () => {
   const [npm, setNpm] = useState("");
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
-  
+  const [error, setError] = useState("");
+
+  const handleValueChanges = (newValue : string) => {
+    setGrade(newValue);
+  }
+
   // format phone number 
   const formatPhoneNumber = (phone: string) => {
     if (phone.startsWith('0')) {
@@ -53,8 +65,8 @@ const Attendance = () => {
       setPhone("");
       setNpm("")
 
-    } catch (e: any) {
-      if(!npm && !grade && !name) {
+    } catch  {
+      if (!npm && !grade && !name) {
         setError("Data Harus Diisi")
       }
     } finally {
@@ -67,42 +79,51 @@ const Attendance = () => {
     <div className='w-full h-full'>
       <form className='p-10 max-w-md space-y-4' onSubmit={handleSubmitData}>
         <h1 className='font-semibold g:text-2xl md:text-lg text-disable'>Tambah Data Mahasiswa Baru</h1>
-        <div className="flex flex-col gap-2 w-full">
-          <label htmlFor="name" className='font-bold text-primary'>Nama Mahasiswa</label>
-          <input type="text" className=' px-4 py-3 border rounded-lg placeholder:text-disable font-normal ' placeholder='Masukan Nama Mahasiswa'
+        <div className="flex flex-col gap-3 space-y-3 w-full">
+          <Label htmlFor="name" className='text-primary font-semibold '>Nama Mahasiswa</Label>
+          <Input
+            type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <label htmlFor="npm" className='font-bold text-primary'>Nomor Pokok Mahasiswa</label>
-          <input type="text" className='px-4 py-3 border rounded-lg placeholder:text-disable font-normal ' placeholder='Masukan nomer induk mahasiswa'
+            onChange={(event) => setName(event.target.value)}
+            id="name"
+            className='px-4 py-3'
+            placeholder="Masukan nama mahasiswa" />
+          <Label htmlFor="npm"
+            className='text-primary font-semibold'>NPM </Label>
+          <Input
+            type="number"
             value={npm}
-            onChange={(e) => setNpm(e.target.value)}
-          />
-          <label htmlFor="class" className='font-bold text-primary'>Kelas</label>
-          <select
-            id='class'
-            name="grade"
-            value={grade}
-            onChange={(e) => setGrade(e.target.value)}
-            className="border px-4 py-3 w-full border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm">
-            <option value="" disabled>
-              Pilih Kelas
-            </option>
-            {kelasMahasiswa.map((kelas) => (
-              <option key={kelas} value={kelas}>
-                Kelas {kelas}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="phone" className='font-bold text-primary'>Masukan Nomer Hp Mahasiswa</label>
-          <input type="number"
+            onChange={(event) => setNpm(event.target.value)}
+            id="npm"
+            placeholder="Masukan NPM Mahasiswa" />
+          <Label htmlFor='kelas'
+            className='text-primary font-semibold'>Kelas</Label>
+          <Select value={ grade } onValueChange={ handleValueChanges }>
+            <SelectTrigger className="w-[350px]" >
+              <SelectValue placeholder="Pilih Kelas " />
+            </SelectTrigger>
+            <SelectContent>
+              {
+                kelasMahasiswa?.map((cls) => (
+                  <SelectItem value={cls} key={cls}>{ cls }</SelectItem>
+                ))
+              }
+            </SelectContent>
+          </Select>
+          <Label htmlFor='phone' className='font-semibold text-primary'>
+            Nomor Hp
+          </Label>
+          <Input
+            type='number'
+            placeholder='Awali dengan angka 0'
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className='px-4 py-3 border rounded-lg placeholder:text-disable font-normal' placeholder='max 13 digit, diawali dengan 0' />
+            className='px-4 py-3'
+          />
         </div>
         {
           error && (
-            <p className='font-semibold text-error'>{ error }</p>
+            <p className='font-semibold text-error'>{error}</p>
           )
         }
         <button type='submit' className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3 mt-3'>
@@ -111,17 +132,17 @@ const Attendance = () => {
           }
         </button>
       </form>
-      <Modal 
+      <Modal
         title='Berhasil'
         content='Berhasil Tambah Data Baru'
         type='success'
-        isOpen = {showModal}
+        isOpen={showModal}
         buttonText1='Lanjut'
         buttonType1='primary'
-            buttonText2='Tutup'
-            buttonType2='secondary'
-            onConfirm={() => setShowModal(false)}
-            onClose={() => router.push('/attendance')}
+        buttonText2='Tutup'
+        buttonType2='secondary'
+        onConfirm={() => setShowModal(false)}
+        onClose={() => router.push('/attendance')}
       />
     </div>
   )

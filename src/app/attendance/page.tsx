@@ -4,7 +4,14 @@ import { kelasMahasiswa } from '../students/page';
 import { collection, doc, getDocs, setDoc, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import Modal from '../_components/molecule/modal/modal';
-
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 interface StudentData {
   npm: string,
@@ -12,6 +19,8 @@ interface StudentData {
   phone: string,
   grade: string
 }
+
+const statusKehadiran = ['Hadir', 'Sakit', 'Ijin Keperluan Pribadi', 'Alpha']
 const AttendancePage = () => {
   const [students, setStudents] = useState<StudentData[]>([]);
   const [selectedGrade, setSelectedGrade] = useState("");
@@ -24,7 +33,18 @@ const AttendancePage = () => {
   const [showModal, setShowModal] = useState(false);
 
 
+  //handle state changes
+  const handleSelectedGradeChanges = (newState: string) => {
+    setSelectedGrade(newState)
+  }
 
+  const handleSelectedIdChanges = (newValue: string) => {
+    setSelectedId(newValue)
+  }
+
+  const HandleStatusChanges = (newStats: string) => {
+    setStatus(newStats)
+  }
   // get time today
   const getCurrentTime = () => {
     const dateNow = new Date();
@@ -32,7 +52,6 @@ const AttendancePage = () => {
     const wibDate = new Date(dateNow.getTime() + offSetInMs);
     return wibDate.toISOString().split('T')[0];
   }
-
   const formatDate = getCurrentTime();
 
   useEffect(() => {
@@ -83,74 +102,64 @@ const AttendancePage = () => {
       setSelectedId("");
       setStatus('')
       setLoading(false)
-    } catch (error: any) {
-      setError(error.message ?? "Gagal menyimpan kehadiran")
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "Gagal menyimpan kehadiran")
     }
   }
 
   return (
     <div className="w-full h-full">
-      <form action="" className='p-10 max-w-md space-y-6' onSubmit={ handleSubmitButton }>
+      <form action="" className='p-10 max-w-md space-y-6' onSubmit={handleSubmitButton}>
         <h2 className='text-pseudo-disable font-semibold lg:text-2xl md:text-lg'>Input Kehadiran Mahasiswa</h2>
         {/* pilih kelas mahasiswa */}
         <div className="max-w-2/5 flex flex-col gap-4 ">
-          <label htmlFor="class" className='font-bold text-primary '> Kelas</label>
-          <select name="class" id="class" className='border 
-          rounded-lg border-zinc-500 p-2 w-2xs placeholder: font-normal '
-            required
-            value={selectedGrade}
-            onChange={(e) => setSelectedGrade(e.target.value)}
-          >
-            <option value="" className='text-primary font-medium text-xs'>Pilih Kelas</option>
-            {
-              kelasMahasiswa.map((grade) => (
-                <option value={grade} key={grade}>
-                  kelas {grade}
-                </option>
-              ))
-            }
-          </select>
-          <label htmlFor="class" className='font-bold text-primary '> Nama Mahasiswa</label>
-          <select name="class" id="class" className='border 
-          rounded-lg border-zinc-500 p-2 w-2xs  placeholder: font-normal '
-            required
-            value={selectedId}
-            disabled={!selectedGrade} // disable ketika tidak kelas atau kelast belum dipilih
-            onChange={(e) => setSelectedId(e.target.value)}
-          >
-            <option value="" className='text-primary font-medium text-xs'>
+          <Label htmlFor="grade"
+            className='text-primary font-semibold'>
+            Pilih Kelas</Label>
+          <Select value={selectedGrade} onValueChange={handleSelectedGradeChanges}>
+            <SelectTrigger className="w-[350px]">
+              <SelectValue placeholder="Kelas" />
+            </SelectTrigger>
+            <SelectContent>
               {
-                !selectedGrade ? "Pilih Kelas Dulu " : "Pilih Nama Mahasiswa"
+                kelasMahasiswa?.map((cls) => (
+                  <SelectItem key={cls} value={cls}>{cls}</SelectItem>
+                ))
               }
-            </option>
-            {
-              filteredStudents.map((std) => (
-                <option value={std.npm} key={std.npm}>
-                  {std.name} - {std.npm}
-                </option>
-              ))
-            }
-          </select>
-          <label htmlFor="input-kehadiran" className='text-primary font-bold'>Input Kehadiran</label>
-          <select value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className='border rounded-lg p-2 w-2xs placeholder: font-normal'
-            disabled={!selectedGrade}
-          >
-            <option value="" >
+            </SelectContent>
+          </Select>
+          <Label className='font-semibold text-primary'>Nama Mahasiswa</Label>
+          <Select value={selectedId} onValueChange={handleSelectedIdChanges} disabled={!selectedGrade}>
+            <SelectTrigger className="w-[350px]">
+              <SelectValue placeholder="Pilih Mahasiswa" />
+            </SelectTrigger>
+            <SelectContent>
               {
-                !selectedGrade ? "Pilih Nama Mahasiswa Dulu" : "Pilih Status Kehadiran"
+                filteredStudents?.map((std) => (
+                  <SelectItem key={std.npm} value={std.name}>{std.name}</SelectItem>
+                ))
               }
-            </option>
-            {['Hadir', 'Sakit', 'Ijin Keperluan Pribadi', 'Alpha'].map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
+            </SelectContent>
+          </Select>
+          <Label htmlFor="input-kehadiran" className='text-primary font-bold'>Input Kehadiran</Label>
+          <Select
+            disabled={!selectedId && !selectedGrade}
+            value={status}
+            onValueChange={HandleStatusChanges}>
+            <SelectTrigger className="w-[350px]">
+              <SelectValue placeholder="Input Kehadiran" />
+            </SelectTrigger>
+            <SelectContent>
+              {
+                statusKehadiran?.map((stats) => (
+                  <SelectItem value={stats} key={stats}>{stats}</SelectItem>
+                ))
+              }
+            </SelectContent>
+          </Select>
         </div>
         {
-          error &&  (
+          error && (
             <p className='text-error font-normal'>{error}</p>
           )
         }

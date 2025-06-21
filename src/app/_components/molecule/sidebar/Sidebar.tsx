@@ -77,7 +77,7 @@ function Sidebar() {
   return (
     <>
       <div className="h-screen w-64 font-normal  fixed py-8 top-20 
-      bg-sidebar-accent border-sidebar-border
+      bg-secondary
       left-0 flex flex-col gap-10 overflow-y-auto">
         {itemsMenu.map((item) => (
           <div className="flex flex-col transition-colors" key={item.category}>
@@ -93,14 +93,14 @@ function Sidebar() {
                   {menu.icon && (
                     <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-tertiary" />
                   )}
-                  <p>{menu.name}</p>
+                  <p className='cursor-pointer'>{menu.name}</p>
                 </button>
               ) : (
                 <Link
                   href={menu.href}
                   className={`${
-                    pathname === menu.href ? 'bg-primary' : ''
-                  } flex items-center hover:bg-ring px-5 py-3 gap-3 text-tertiary text-lg`}
+                    pathname === menu.href ? 'bg-primary border rounded-2xl text-white ' : ''
+                  } flex items-center hover:bg-accent px-3 py-2 gap-5 text-tertiary text-lg`}
                   key={menu.name}>
                   {menu.icon && (
                     <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-tertiary" />
