@@ -57,7 +57,7 @@ const RegisterPage = () => {
   return (
     <>
       <div className='w-screen h-screen flex justify-between '>
-        <div className='w-2/3 flex flex-col h-full p-16 gap-16 md:gap-4 '>
+        <div className='w-2/5 flex flex-col h-full p-16 gap-16 md:gap-2 '>
           <div className='flex items-center  gap-4 md:w-xs'>
             <Image src={Logo} alt='logo' className='lg:w-28 md:w-20' />
             <div className="flex-col">

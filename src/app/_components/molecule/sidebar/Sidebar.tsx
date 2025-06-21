@@ -76,20 +76,22 @@ function Sidebar() {
 
   return (
     <>
-      <div className="h-screen w-64 font-normal bg-primary fixed py-8 top-20 left-0 flex flex-col gap-10 overflow-y-auto">
+      <div className="h-screen w-64 font-normal  fixed py-8 top-20 
+      bg-sidebar-accent border-sidebar-border
+      left-0 flex flex-col gap-10 overflow-y-auto">
         {itemsMenu.map((item) => (
           <div className="flex flex-col transition-colors" key={item.category}>
-            <p className="text-white text-lg font-semibold px-5">{item.category}</p>
+            <p className="text-tertiary text-lg font-semibold px-5">{item.category}</p>
             {item.items.map((menu) =>
               menu.type === 'button' ? (
                 <button
                   onClick={menu.function}
                   className={`${
                     pathname === menu.href ? 'bg-amber-200' : ''
-                  } flex items-center hover:bg-disable transition-colors px-5 py-3 gap-3 text-white text-lg`}
+                  } flex items-center transition-colors px-5 py-3 gap-3 text-tertiary text-lg`}
                   key={menu.name}>
                   {menu.icon && (
-                    <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-white" />
+                    <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-tertiary" />
                   )}
                   <p>{menu.name}</p>
                 </button>
@@ -97,11 +99,11 @@ function Sidebar() {
                 <Link
                   href={menu.href}
                   className={`${
-                    pathname === menu.href ? 'bg-disable' : ''
-                  } flex items-center hover:bg-pseudo-disable px-5 py-3 gap-3 text-white text-lg`}
+                    pathname === menu.href ? 'bg-primary' : ''
+                  } flex items-center hover:bg-ring px-5 py-3 gap-3 text-tertiary text-lg`}
                   key={menu.name}>
                   {menu.icon && (
-                    <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-white" />
+                    <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-tertiary" />
                   )}
                   <p>{menu.name}</p>
                 </Link>
