@@ -8,6 +8,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Modal from '../modal/modal';
 import Image from 'next/image';
+import { toast } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
 
 function Sidebar() {
   const pathname = usePathname();
@@ -20,6 +22,7 @@ function Sidebar() {
       deleteCookie('token', { path: '/' });
       handleCloseLogoutModal();
       router.push('/login');
+      toast.success("Berhasil Logout")
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -77,7 +80,7 @@ function Sidebar() {
   return (
     <>
       <div className="h-screen w-64 font-normal  fixed py-8 top-20 
-      bg-secondary
+      bg-sidebar
       left-0 flex flex-col gap-10 overflow-y-auto">
         {itemsMenu.map((item) => (
           <div className="flex flex-col transition-colors" key={item.category}>
@@ -99,8 +102,8 @@ function Sidebar() {
                 <Link
                   href={menu.href}
                   className={`${
-                    pathname === menu.href ? 'bg-primary border rounded-2xl text-white ' : ''
-                  } flex items-center hover:bg-accent px-3 py-2 gap-5 text-tertiary text-lg`}
+                    pathname === menu.href ? 'bg-primary border rounded-2xl text-sidebar-accent ' : ''
+                  } flex items-center hover:bg-sidebar-accent  px-3 py-2 gap-5 border rounded-2xl text-tertiary text-lg mt-1 mb-1 ms-2 mr-2`}
                   key={menu.name}>
                   {menu.icon && (
                     <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-tertiary" />
@@ -124,6 +127,7 @@ function Sidebar() {
         onConfirm={handleLogout}
         onClose={() => setShowLogoutModal(false)}
       />
+      <Toaster richColors position='top-center'/>
     </>
   );
 }

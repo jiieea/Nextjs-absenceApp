@@ -2,7 +2,6 @@ import React from 'react'
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -24,7 +23,7 @@ export function TableDemo({ attendance }: { attendance: AttendanceStudent[] }): 
                     <TableHead className="w-[100px]">Nama</TableHead>
                     <TableHead>NPM</TableHead>
                     <TableHead>Kelas</TableHead>
-                    <TableHead className="text-right">Status</TableHead>
+                    <TableHead >Status</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>

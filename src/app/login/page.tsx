@@ -11,7 +11,8 @@ import { setCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation'
 import Loader from '../_components/molecule/Loader'
 import { errorMsg } from '@/lib/errorMsg'
-
+import { toast } from 'sonner'
+import { Toaster } from '@/components/ui/sonner'
 
 const LoginPage = () => {
   const router = useRouter()
@@ -32,6 +33,7 @@ const LoginPage = () => {
       })
 
       router.push("/dashboard");
+      toast.success("Berhasil Login")
     } catch (e: any) {
       const err = errorMsg(e.message);
       if(err && err[1])
@@ -95,6 +97,7 @@ const LoginPage = () => {
         </div>
         <h3 className=' mt-3 ' >Belum Punya Akun ? <Link href="/register" className='text-primary font-bold'>daftar</Link></h3>
       </form>
+<Toaster richColors position='top-center'/>
     </div>
     {/* image banner */}
     <Image src={Banner1 } alt='signup-banner' width={1500} className='h-full object-cover md:w-2/3' />

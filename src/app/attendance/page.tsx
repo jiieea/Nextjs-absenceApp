@@ -12,6 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Toaster } from '@/components/ui/sonner';
+import { toast } from 'sonner';
 
 interface StudentData {
   grade : string,
@@ -61,7 +63,7 @@ const AttendancePage = () => {
       setStudents(data);
     };
     getData();
-  })
+  },[])
 
   useEffect(() => {
     if (selectedGrade) {
@@ -78,11 +80,12 @@ const AttendancePage = () => {
   const handleSubmitButton = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-  
+
+
 const student = students.find((student ) => student.npm === selectedId);
 
 if(!student) {
-  setError("Mahasiswa Tidak Ada");
+  toast.error("Mahasiswa Tidak Ada")
   return;
 }
 
@@ -115,7 +118,7 @@ if(!student) {
           <Label htmlFor="grade"
             className='text-primary font-semibold'>
             Pilih Kelas</Label>
-          <Select value={selectedGrade} onValueChange={handleSelectedGradeChanges}>
+          <Select value={selectedGrade} onValueChange={handleSelectedGradeChanges} required>
             <SelectTrigger className="w-[350px]">
               <SelectValue placeholder="Kelas"  />
             </SelectTrigger>
@@ -142,7 +145,7 @@ if(!student) {
           </Select>
           <Label htmlFor="input-kehadiran" className='text-primary font-bold'>Input Kehadiran</Label>
           <Select
-            disabled={!selectedId && !selectedGrade}
+            disabled={ !selectedId }
             value={status}
             onValueChange={HandleStatusChanges}>
             <SelectTrigger className="w-[350px]">
@@ -166,7 +169,7 @@ if(!student) {
           loading ? "Sedang meyimpan" : "Simpan Kehadiran"
         }</button>
       </form>
-
+        <Toaster  position='top-center' richColors/>
       <Modal
         title="Sukses"
         content="Kehadiran berhasil disimpan. Notifikasi telah dikirim ke orang tua siswa."

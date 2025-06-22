@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { toast, Toaster } from 'sonner';
 
 export const kelasMahasiswa = ["RZ", "RY", "RW", "RU"];
 
@@ -49,6 +50,7 @@ const Attendance = () => {
 
       if (existing.exists()) {
         setError("Data NPM Sudah Ada");
+        toast.error("Data NPM Sudah Ada");
         return;
       }
 
@@ -64,7 +66,7 @@ const Attendance = () => {
       setGrade("")
       setPhone("");
       setNpm("")
-
+      toast.success("Berhasil Tambah Mahasiwa")
     } catch  {
       if (!npm && !grade && !name) {
         setError("Data Harus Diisi")
@@ -132,6 +134,7 @@ const Attendance = () => {
           }
         </button>
       </form>
+      <Toaster  richColors position='top-center'/>
       <Modal
         title='Berhasil'
         content='Berhasil Tambah Data Baru'
