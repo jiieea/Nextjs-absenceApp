@@ -14,10 +14,10 @@ import {
 } from "@/components/ui/select"
 
 interface StudentData {
-  npm: string,
-  name: string,
-  phone: string,
-  grade: string
+  grade : string,
+  name : string,
+  npm : string,
+  phone : string
 }
 
 const statusKehadiran = ['Hadir', 'Sakit', 'Ijin Keperluan Pribadi', 'Alpha']
@@ -78,15 +78,14 @@ const AttendancePage = () => {
   const handleSubmitButton = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+  
+const student = students.find((student ) => student.npm === selectedId);
 
-    const student = students.find((std) => std.npm === selectedId);
-    if (!student) {
-      setError('mahasiswa tidak ditemukan');
-      setLoading(false)
-      return;
-    }
+if(!student) {
+  setError("Mahasiswa Tidak Ada");
+  return;
+}
 
-    // const phone = student.phone.startsWith('0') ? + "62" + student.phone.slice(1) : student.phone
     try {
       const attendanceRef = doc(db, 'attendance', `${selectedId}_${formatDate}`);
 
@@ -118,9 +117,9 @@ const AttendancePage = () => {
             Pilih Kelas</Label>
           <Select value={selectedGrade} onValueChange={handleSelectedGradeChanges}>
             <SelectTrigger className="w-[350px]">
-              <SelectValue placeholder="Kelas" />
+              <SelectValue placeholder="Kelas"  />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent> 
               {
                 kelasMahasiswa?.map((cls) => (
                   <SelectItem key={cls} value={cls}>{cls}</SelectItem>
@@ -136,7 +135,7 @@ const AttendancePage = () => {
             <SelectContent>
               {
                 filteredStudents?.map((std) => (
-                  <SelectItem key={std.npm} value={std.name}>{std.name}</SelectItem>
+                  <SelectItem key={std.npm} value={std.npm}>{std.name}</SelectItem>
                 ))
               }
             </SelectContent>

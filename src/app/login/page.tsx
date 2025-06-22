@@ -93,7 +93,7 @@ const LoginPage = () => {
             }
           </button>
         </div>
-        <h3 className=' mt-3 ' >sudah punya akun ? <Link href="/register" className='text-primary font-bold'>login</Link></h3>
+        <h3 className=' mt-3 ' >Belum Punya Akun ? <Link href="/register" className='text-primary font-bold'>daftar</Link></h3>
       </form>
     </div>
     {/* image banner */}

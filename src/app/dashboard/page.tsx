@@ -80,8 +80,8 @@ const Dashboard = () => {
       setAttendance(attendanceResults);
       setLoading(false);
       setDataLoaded(true);
-    } catch (e: any) {
-      setError(e.message)
+    } catch (e: unknown){
+      setError(e instanceof Error ? e.message : "Gagal menampilkan data")
     }
   };
   return (
