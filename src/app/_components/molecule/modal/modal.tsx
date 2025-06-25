@@ -41,7 +41,7 @@ function Modal(props: Readonly<ModalProps>) {
           {buttonText1 && (
             <button
               className={`px-4 py-2 rounded-2xl min-w-24 ${
-                buttonType1 === 'primary' ? 'bg-error text-white' : 'bg-gray-300 text-black'
+                buttonType1 === 'primary' ? 'bg-primary text-white' : 'bg-gray-300 text-black'
               }`}
               onClick={onConfirm}>
               {buttonText1}

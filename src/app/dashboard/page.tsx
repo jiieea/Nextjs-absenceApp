@@ -37,7 +37,6 @@ interface AttendanceStudent {
 
 const Dashboard = () => {
   const [selectedDate, setSelectedDate] = useState("");
-  const [date, setDate] = useState<Date | undefined>(undefined)
   const [grades, setGrades] = useState<string[]>([]);
   const [selectedGrade, setSelectedGrade] = useState('');
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -120,7 +119,7 @@ const Dashboard = () => {
         <div className="flex flex-col space-y-2">
           <Label>Pilih Tanggal</Label>
           <input type="date" placeholder='pilih tanggal'
-            className='border-1 border-secondary  rounded-xl border-opacity-25 p-1.5 placeholder: font-light w-40 '
+            className='border-1 border-secondary  rounded-xl border-opacity-25 p-1.5 placeholder: font-light  w-40 '
             max={today}
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}

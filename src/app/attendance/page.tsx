@@ -19,7 +19,7 @@ interface StudentData {
   grade : string,
   name : string,
   npm : string,
-  phone : string
+  phoneNumber : string
 }
 
 const statusKehadiran = ['Hadir', 'Sakit', 'Ijin Keperluan Pribadi', 'Alpha']
@@ -33,6 +33,8 @@ const AttendancePage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+
+
 
 
   //handle state changes
@@ -84,6 +86,8 @@ const AttendancePage = () => {
 
 const student = students.find((student ) => student.npm === selectedId);
 
+const phone = student?.phoneNumber.startsWith('0') ? "+62" + student.phoneNumber.slice(1) : student?.phoneNumber;
+
 if(!student) {
   toast.error("Mahasiswa Tidak Ada")
   return;
@@ -98,6 +102,20 @@ if(!student) {
         date: formatDate,
         timeStamp: Timestamp.now()
       });
+
+      // fetch endpoint sen-whatsapp
+      await fetch("/api/send-whatsapp" , {
+        method : "POST",
+        headers : {
+          "Content-Type" : "application/json",
+        },body : JSON.stringify({
+          phone,
+          name :  student.name,
+          grade : student.grade,
+          date : formatDate,
+          status : status
+        })
+      })
 
       setShowModal(true);
       setSelectedGrade("")
@@ -172,7 +190,7 @@ if(!student) {
         <Toaster  position='top-center' richColors/>
       <Modal
         title="Sukses"
-        content="Kehadiran berhasil disimpan. Notifikasi telah dikirim ke orang tua siswa."
+        content="Kehadiran berhasil disimpan. Notifikasi telah terkirim ke Whatsapp."
         type="success"
         isOpen={showModal}
         buttonText1="OK"
