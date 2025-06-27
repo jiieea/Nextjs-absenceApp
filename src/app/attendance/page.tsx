@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { kelasMahasiswa } from '../students/page';
 import { collection, doc, getDocs, setDoc, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import Modal from '../_components/molecule/modal/modal';
@@ -35,7 +34,7 @@ const AttendancePage = () => {
   const [showModal, setShowModal] = useState(false);
 
 
-
+  const kelasMahasiswa = ["RZ", "RY", "RW", "RU"]
 
   //handle state changes
   const handleSelectedGradeChanges = (newState: string) => {

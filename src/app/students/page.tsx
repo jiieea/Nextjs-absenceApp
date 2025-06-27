@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select"
 import { toast, Toaster } from 'sonner';
 
-export const kelasMahasiswa = ["RZ", "RY", "RW", "RU"];
+ const kelasMahasiswa = ["RZ", "RY", "RW", "RU"];
 
 const Attendance = () => {
   const router = useRouter()
