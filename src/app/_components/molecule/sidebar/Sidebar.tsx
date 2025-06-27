@@ -1,5 +1,10 @@
 'use client';
-import { AttendanceIcon, DashboardIcon, LogoutIcon, RegisterIcon } from '@/app/_assets/icons';
+import {
+  AttendanceIcon,
+  DashboardIcon,
+  LogoutIcon,
+  RegisterIcon
+} from '@/app/_assets/icons';
 import { auth } from '@/lib/firebaseClient';
 import { deleteCookie } from 'cookies-next';
 import { signOut } from 'firebase/auth';
@@ -45,21 +50,21 @@ function Sidebar() {
           href: '/dashboard',
           icon: DashboardIcon,
           type: 'link',
-          function: () => {},
+          function: () => { },
         },
         {
           name: 'Kehadiran',
           href: '/attendance',
           icon: AttendanceIcon,
           type: 'link',
-          function: () => {},
+          function: () => { },
         },
         {
           name: 'Pendaftaran Siswa',
           href: '/students',
           icon: RegisterIcon,
           type: 'link',
-          function: () => {},
+          function: () => { },
         },
       ],
     },
@@ -89,9 +94,8 @@ function Sidebar() {
               menu.type === 'button' ? (
                 <button
                   onClick={menu.function}
-                  className={`${
-                    pathname === menu.href ? 'bg-amber-200' : ''
-                  } flex items-center transition-colors px-5 py-3 gap-3 text-tertiary text-lg`}
+                  className={`${pathname === menu.href ? 'bg-amber-200' : ''
+                    } flex items-center transition-colors px-5 py-3 gap-3 text-tertiary text-lg`}
                   key={menu.name}>
                   {menu.icon && (
                     <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-tertiary" />
@@ -101,9 +105,8 @@ function Sidebar() {
               ) : (
                 <Link
                   href={menu.href}
-                  className={`${
-                    pathname === menu.href ? 'bg-primary border rounded-2xl text-sidebar-accent ' : ''
-                  } flex items-center hover:bg-sidebar-accent  px-3 py-2 gap-5 border rounded-2xl text-tertiary text-lg mt-1 mb-1 ms-2 mr-2`}
+                  className={`${pathname === menu.href ? 'bg-primary border rounded-2xl text-sidebar-accent ' : ''
+                    } flex items-center hover:bg-sidebar-accent  px-3 py-2 gap-5 border rounded-2xl text-tertiary text-lg mt-1 mb-1 ms-2 mr-2`}
                   key={menu.name}>
                   {menu.icon && (
                     <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-tertiary" />
@@ -127,7 +130,7 @@ function Sidebar() {
         onConfirm={handleLogout}
         onClose={() => setShowLogoutModal(false)}
       />
-      <Toaster richColors position='top-center'/>
+      <Toaster richColors position='top-center' />
     </>
   );
 }
