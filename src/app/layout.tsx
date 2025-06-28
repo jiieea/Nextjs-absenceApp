@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Wrapper from "./_components/organisms/wrapper/Wrapper";
 
+
 export const metadata: Metadata = {
   title: 'absensi.ku',
   description: 'Online School Management System',
-  icons : {
-    icon  : 'favicon.png',
+  icons: {
+    icon: 'favicon.png',
   }
 };
 
@@ -17,8 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-       <Wrapper>{ children }</Wrapper>
-
+        <Wrapper >{children }</Wrapper>
     </html>
   );
 }

@@ -26,6 +26,7 @@ function Header() {
         </div>
       </div>
       <div>
+
         <p className="text-primary text-sm font-normal">
           Halo,{' '}
           <span className="text-primary font-semibold">

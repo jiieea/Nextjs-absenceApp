@@ -146,8 +146,8 @@ const Dashboard = () => {
         </div>
 
         <div className="w-40 flex flex-col space-y-2">
-          <Button variant='outline' onClick={handleFetchAttendance}
-            className='px-3 py-2 w-full mt-5'
+          <Button variant='outline'  onClick={handleFetchAttendance}
+            className='px-3 py-2 w-full mt-5 cursor-pointer'
             // Disable if date or grade not selected, or if loading
           >{
               loading ? (

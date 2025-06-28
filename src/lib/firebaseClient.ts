@@ -7,16 +7,17 @@ import { getAuth } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: process.env.NEXT_FIREBASE_API_KEY ,
-  authDomain: process.env.NEXT_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_FIREBASE_STORAGE_BUCKET ,
-  messagingSenderId: process.env.NEXT_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_FIREBASE_MEASUREMENT_ID 
-};
 
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAMlrOpHFUVdf9o86Dl5Zq5Qv8oNTJVGdY",
+  authDomain: "class-attendence-14a62.firebaseapp.com",
+  projectId: "class-attendence-14a62",
+  storageBucket: "class-attendence-14a62.firebasestorage.app",
+  messagingSenderId: "825381034972",
+  appId: "1:825381034972:web:8c2912d67cfbd6000bcd19",
+  measurementId: "G-NEX3W9SZ9T"
+};
 
 const app = !getApps.length ? initializeApp(firebaseConfig) : getApp();
 let analytics;

@@ -1,4 +1,5 @@
 'use client';
+
 import {
   AttendanceIcon,
   DashboardIcon,
@@ -15,7 +16,6 @@ import Modal from '../modal/modal';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import { Toaster } from '@/components/ui/sonner';
-
 function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -89,13 +89,15 @@ function Sidebar() {
       left-0 flex flex-col gap-10 overflow-y-auto">
         {itemsMenu.map((item) => (
           <div className="flex flex-col transition-colors" key={item.category}>
+            
             <p className="text-tertiary text-lg font-semibold px-5">{item.category}</p>
+            
             {item.items.map((menu) =>
               menu.type === 'button' ? (
                 <button
                   onClick={menu.function}
                   className={`${pathname === menu.href ? 'bg-amber-200' : ''
-                    } flex items-center transition-colors px-5 py-3 gap-3 text-tertiary text-lg`}
+                    } flex items-center transition-colors px-5 py-3 gap-3  text-lg`}
                   key={menu.name}>
                   {menu.icon && (
                     <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-tertiary" />
@@ -106,7 +108,7 @@ function Sidebar() {
                 <Link
                   href={menu.href}
                   className={`${pathname === menu.href ? 'bg-primary border rounded-2xl text-sidebar-accent ' : ''
-                    } flex items-center hover:bg-sidebar-accent  px-3 py-2 gap-5 border rounded-2xl text-tertiary text-lg mt-1 mb-1 ms-2 mr-2`}
+                    } flex items-center hover:bg-muted  px-3 py-2 gap-5 border rounded-2xl  text-lg mt-1 mb-1 ms-2 mr-2`}
                   key={menu.name}>
                   {menu.icon && (
                     <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-tertiary" />
