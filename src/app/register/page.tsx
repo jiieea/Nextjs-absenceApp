@@ -7,7 +7,7 @@ import { Banner2 } from '../_assets/images';
 import Link from 'next/link';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '@/lib/firebaseClient';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, setDoc  } from 'firebase/firestore';
 import Modal from '../_components/molecule/modal/modal';
 import { useRouter } from 'next/navigation';
 import Loader from '../_components/molecule/Loader';
@@ -34,13 +34,25 @@ const RegisterPage = () => {
 
       await updateProfile(userCredential.user, {
         displayName: name
-      })
+      });
+
+            // check if the name exist , if exist , update error state
+            const fetchData = await getDocs(collection(db , 'users'));
+            const userName = Array.from(new Set(fetchData.docs.map((user) => user.data().name)))
+            for (const uName of userName) {
+              if(name === uName) {
+                setError("Nama Sudah Ada")
+                break;
+              }
+            }
 
       await setDoc(doc(db, 'users', uid), {
         name,
         email,
         role: 'guru'
       });
+
+
 
       setShowModal(true);
       setName('');
@@ -79,15 +91,15 @@ const RegisterPage = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="lg:border px-4 py-3  border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm
-                md:px-3 
+                md:px-3 md:py-2
                 " />
             </div>
             <div className="flex flex-col gap-2 mb-3">
               <label htmlFor="email" className='lg: text-normal text-primary font-bold '>Email</label>
               <input
                 type="email"
-                className="lg:border px-5 py-3 md:px-3 w-full border-disable rounded-lg 
-                 placeholder:text-disable placeholder:font-light text-sm "
+                className="lg:border px-5 py-3   md:px-3 md:py-2 w-full border-disable rounded-lg 
+                 placeholder:text-disable placeholder:font-light text-sm  "
                 placeholder='masukan email  '
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -97,7 +109,7 @@ const RegisterPage = () => {
               <label htmlFor="email" className='text-primary font-bold text-normal'>Password</label>
               <input
                 type="password"
-                className="border px-4 py-3 w-full
+                className="border px-4 py-3 w-full   md:px-3 md:py-2
                  border-disable rounded-lg placeholder:text-disable 
                  placeholder:font-light text-sm md:p-2"
                 placeholder='masukan password '
@@ -108,7 +120,7 @@ const RegisterPage = () => {
             {error && <p className="text-error text-sm">{error}</p>}
             <div className="flex flex-col gap-2 ">
               <button
-                className='bg-primary rounded-2xl p-3 mt-5 text-white font-bold cursor-pointer'
+                className='bg-primary rounded-2xl p-3 mt-5 text-white font-bold cursor-pointer   md:px-3 md:py-2'
                 type='submit'>
                 {
                   loading ? (

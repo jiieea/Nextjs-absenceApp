@@ -44,25 +44,25 @@ const LoginPage = () => {
   }
   return (
     <div className='w-screen h-screen flex justify-between '>
-    <div className='w-2/6 flex flex-col h-full p-16 gap-16 md:gap-2 '>
+    <div className='w-2/6 flex flex-col h-full p-16 gap-16 md:gap-1 '>
       <div className='flex items-center  gap-4 md:w-xs'>
         <Image src={Logo} alt='logo' className='lg:w-28 md:w-20' />
         <div className="flex-col">
-          <p className='font-bold lg:text-3xl text-primary  md:text-2xl'>Absensi-Ku</p>
+          <p className='font-bold lg:text-3xl text-primary  md:text-lg'>Absensi-Ku</p>
           <p className='text-disable font-bold '>Absensi Cepat, Kuliah Lancar! </p>
         </div>
       </div>
       {/* form input  */}
-      <form onSubmit={handleLogin} className='mt-16 '>
+      <form onSubmit={handleLogin} className='mt-16 md:mt-10 '>
         <div className='xl:mb-3.5 md:mb-1'>
-          <h1 className='font-bold lg:text-2xl mt-3 text-pseudo-disable md:text-base '>Daftar <br /> ke Absensi.ku</h1>
+          <h1 className='font-bold lg:text-2xl mt-3 text-pseudo-disable md:mt-1 '>Masuk <br /> ke Absensi.ku</h1>
         </div>
         {/* input  */}
         <div className="flex flex-col gap-2 mb-3">
           <label htmlFor="email" className='lg: text-normal text-primary font-bold '>Email</label>
           <input
             type="email"
-            className="lg:border px-5 py-3 md:px-3 w-full border-disable rounded-lg 
+            className="lg:border px-4 py-3 md:py-2  md:px-3 w-full border-disable rounded-lg 
              placeholder:text-disable placeholder:font-light text-sm "
             placeholder='masukan email  '
             value={email}
@@ -73,7 +73,7 @@ const LoginPage = () => {
           <label htmlFor="email" className='text-primary font-bold text-normal'>Password</label>
           <input
             type="password"
-            className="border px-4 py-3 w-full
+            className="border px-4 py-3 w-full   md:px-3 md:py-2
              border-disable rounded-lg placeholder:text-disable 
              placeholder:font-light text-sm md:p-2"
             placeholder='masukan password '
@@ -84,7 +84,7 @@ const LoginPage = () => {
         {error && <p className="text-error text-sm">{error}</p>}
         <div className="flex flex-col gap-2 ">
           <button
-            className='bg-primary rounded-2xl p-3 mt-5 text-white font-bold cursor-pointer'
+            className='bg-primary rounded-2xl p-2 mt-5 text-white font-bold cursor-pointer md:mt-0.5'
             type='submit'>
             {
               loading ? (
