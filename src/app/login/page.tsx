@@ -14,12 +14,15 @@ import { errorMsg } from '@/lib/errorMsg'
 import { toast } from 'sonner'
 import { Toaster } from '@/components/ui/sonner'
 
+
 const LoginPage = () => {
-  const router = useRouter()
+  const router = useRouter();
+  const [ failed , setFailed ] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
+
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -37,14 +40,15 @@ const LoginPage = () => {
     } catch (e: any) {
       const err = errorMsg(e.message);
       if(err && err[1])
-        setError(err[1])
+        setError(err[1]);
+      setFailed(failed + 1);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
   return (
     <div className='w-screen h-screen flex justify-between '>
-    <div className='w-2/6 flex flex-col h-full p-16 gap-16 md:gap-1 '>
+    <div className='w-2/6 flex flex-col h-full p-16 gap-16 md:gap-1  lg:space-y-4 '>
       <div className='flex items-center  gap-4 md:w-xs'>
         <Image src={Logo} alt='logo' className='lg:w-28 md:w-20' />
         <div className="flex-col">
@@ -53,7 +57,7 @@ const LoginPage = () => {
         </div>
       </div>
       {/* form input  */}
-      <form onSubmit={handleLogin} className='mt-16 md:mt-10 '>
+      <form onSubmit={handleLogin} className='lg:mt-16 md:mt-10 '>
         <div className='xl:mb-3.5 md:mb-1'>
           <h1 className='font-bold lg:text-2xl mt-3 text-pseudo-disable md:mt-1 '>Masuk <br /> ke Absensi.ku</h1>
         </div>
@@ -84,8 +88,11 @@ const LoginPage = () => {
         {error && <p className="text-error text-sm">{error}</p>}
         <div className="flex flex-col gap-2 ">
           <button
-            className='bg-primary rounded-2xl p-2 mt-5 text-white font-bold cursor-pointer md:mt-0.5'
-            type='submit'>
+            className={
+              failed >= 2 ? "cursor-not-allowed bg-primary rounded-2xl lg:py-3 lg:px-4  lg:mt-5 text-white font-bold  md:mt-0.5 md:py-3 md:px-2" : 'bg-primary rounded-2xl lg:py-3 lg:px-4  lg:mt-5 text-white font-bold  md:mt-0.5 md:py-3 md:px-2 cursor-pointer'
+            }
+            type='submit'
+            >
             {
               loading ? (
                 <Loader />

@@ -27,7 +27,19 @@ const RegisterPage = () => {
   // handle button submit
   const handleSubmitButton = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
+
+       // check if the name exist , if exist , update error state
+       const fetchData = await getDocs(collection(db , 'users'));
+       const userName = Array.from(new Set(fetchData.docs.map((user) => user.data().name)));
+       console.log(userName)
+       for (const uName of userName) {
+         if(name === uName) {
+           setError("Nama Sudah Ada")
+           setLoading(false)
+           return;
+         }
+       }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
@@ -35,25 +47,11 @@ const RegisterPage = () => {
       await updateProfile(userCredential.user, {
         displayName: name
       });
-
-            // check if the name exist , if exist , update error state
-            const fetchData = await getDocs(collection(db , 'users'));
-            const userName = Array.from(new Set(fetchData.docs.map((user) => user.data().name)))
-            for (const uName of userName) {
-              if(name === uName) {
-                setError("Nama Sudah Ada")
-                break;
-              }
-            }
-
       await setDoc(doc(db, 'users', uid), {
         name,
         email,
         role: 'guru'
       });
-
-
-
       setShowModal(true);
       setName('');
       setEmail('');
