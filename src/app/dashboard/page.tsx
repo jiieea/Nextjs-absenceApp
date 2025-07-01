@@ -117,9 +117,9 @@ const Dashboard = () => {
       <div className="flex flex-col md:flex-row gap-3.5 mt-4 space-y">
         {/* date input */}
         <div className="flex flex-col space-y-2">
-          <Label>Pilih Tanggal</Label>
-          <input type="date" placeholder='pilih tanggal'
-            className='border-1 border-secondary  rounded-xl border-opacity-25 p-1.5 placeholder: font-light  w-40 '
+          <Label className='text-primary font-bold '>Pilih Tanggal</Label>
+          <input type="date" placeholder='pilih tanggal' 
+            className='border-1 border-secondary  rounded-xl border-opacity-25 p-1.5 placeholder: font-light  w-40 outline-none   '
             max={today}
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
@@ -127,7 +127,7 @@ const Dashboard = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <Label>Pilih Kelas</Label>
+          <Label className='text-primary font-bold '>Pilih Kelas</Label>
           <Select value={selectedGrade} onValueChange={handleGradeChanges} disabled={!selectedDate}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Pilih Kelas" />
