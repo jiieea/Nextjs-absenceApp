@@ -114,7 +114,8 @@ if(!student) {
           date : formatDate,
           status : status
         })
-      })
+      });
+
 
       setShowModal(true);
       setSelectedGrade("")

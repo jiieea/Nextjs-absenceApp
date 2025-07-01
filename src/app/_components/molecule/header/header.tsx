@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/lib/firebaseClient';
+import { ModeToggle } from '../theme-toggle';
 
 function Header() {
   const [displayName, setDisplayName] = useState<string | null>(null);
@@ -32,6 +33,7 @@ function Header() {
           <span className="text-primary font-semibold">
             {displayName || 'Unknown User'}
           </span>{' '}
+      <ModeToggle />
         </p>
       </div>
     </header>

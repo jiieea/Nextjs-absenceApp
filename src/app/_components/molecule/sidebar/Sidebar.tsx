@@ -89,9 +89,8 @@ function Sidebar() {
       left-0 flex flex-col gap-10 overflow-y-auto">
         {itemsMenu.map((item) => (
           <div className="flex flex-col transition-colors" key={item.category}>
-            
+
             <p className="text-tertiary text-lg font-semibold px-5">{item.category}</p>
-            
             {item.items.map((menu) =>
               menu.type === 'button' ? (
                 <button

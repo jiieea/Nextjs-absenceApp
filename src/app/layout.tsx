@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Wrapper from "./_components/organisms/wrapper/Wrapper";
-
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: 'absensi.ku',
@@ -19,7 +19,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.png" /> 
-        <Wrapper >{children }</Wrapper>
+        <Wrapper >
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+           {children}
+          </ThemeProvider>
+        </Wrapper>
     </html>
   );
 }

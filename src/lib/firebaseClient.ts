@@ -19,6 +19,8 @@ const firebaseConfig = {
   measurementId: "G-NEX3W9SZ9T"
 };
 
+
+
 const app = !getApps.length ? initializeApp(firebaseConfig) : getApp();
 let analytics;
 if(typeof window !== "undefined") {

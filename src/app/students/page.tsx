@@ -15,6 +15,18 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { toast, Toaster } from 'sonner';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 
  const kelasMahasiswa = ["RZ", "RY", "RW", "RU"];
 
@@ -133,6 +145,7 @@ const Attendance = () => {
             loading ? "Mohon Tunnggu" : "Tambah Data"
           }
         </button>
+          
       </form>
       <Toaster  richColors position='top-center'/>
       <Modal
