@@ -15,21 +15,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { toast, Toaster } from 'sonner';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
-
+import { Button } from '@/components/ui/button';
  const kelasMahasiswa = ["RZ", "RY", "RW", "RU"];
-
 const Attendance = () => {
   const router = useRouter()
   const [grade, setGrade] = useState("");
@@ -60,6 +47,7 @@ const Attendance = () => {
       const ref = doc(db, 'students', npm);
       const existing = await getDoc(ref);
 
+      // check if npm is already in the database
       if (existing.exists()) {
         setError("Data NPM Sudah Ada");
         toast.error("Data NPM Sudah Ada");
@@ -140,11 +128,11 @@ const Attendance = () => {
             <p className='font-semibold text-error'>{error}</p>
           )
         }
-        <button type='submit' className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3 mt-3'>
+        <Button type='submit' className='bg-primary p-2 rounded-lg text-white w-full px-4 py-3 mt-3'>
           {
-            loading ? "Mohon Tunnggu" : "Tambah Data"
+            loading ? "Mohon Tunggu" : "Tambah Data"
           }
-        </button>
+        </Button>
           
       </form>
       <Toaster  richColors position='top-center'/>

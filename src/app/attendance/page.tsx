@@ -163,7 +163,7 @@ if(!student) {
           </Select>
           <Label htmlFor="input-kehadiran" className='text-primary font-bold'>Input Kehadiran</Label>
           <Select
-            disabled={ !selectedId }
+            disabled={ !selectedId  || !selectedGrade}
             value={status}
             onValueChange={HandleStatusChanges}>
             <SelectTrigger className="w-[350px]">

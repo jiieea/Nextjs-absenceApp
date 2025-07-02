@@ -19,6 +19,7 @@ import {
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Toaster } from '@/components/ui/sonner';
+import { Input } from '@/components/ui/input';
 
 interface Students {
   npm: string,
@@ -93,6 +94,7 @@ const Dashboard = () => {
           attendanceResults.push(attendanceDoc.data() as AttendanceStudent);
         }
         // No else here, if not found, it's just not added to results
+
       }
 
       setAttendance(attendanceResults);
@@ -118,11 +120,11 @@ const Dashboard = () => {
         {/* date input */}
         <div className="flex flex-col space-y-2">
           <Label className='text-primary font-bold '>Pilih Tanggal</Label>
-          <input type="date" placeholder='pilih tanggal' 
-            className='border-1 border-secondary  rounded-xl border-opacity-25 p-1.5 placeholder: font-light  w-40 outline-none   '
-            max={today}
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
+            <Input type="date" placeholder='pilih tanggal' 
+              className='border-1 border-secondary  rounded-xl border-opacity-25 p-1.5 placeholder: font-light  w-40 outline-none   '
+              max={today}
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
           />
         </div>
 
