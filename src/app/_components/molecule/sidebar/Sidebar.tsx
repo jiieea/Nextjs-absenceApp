@@ -107,7 +107,7 @@ function Sidebar() {
                 <Link
                   href={menu.href}
                   className={`${pathname === menu.href ? 'bg-primary border rounded-2xl text-sidebar-accent hover:text- ' : ''
-                    } flex items-center hover:bg-sidebar-accent  px-3 py-2 gap-5 border rounded-2xl  text-lg mt-1 mb-1 ms-2 mr-2 hover:text-sidebar-primary`}
+                    } flex items-center hover:bg-sidebar-accent transition  px-3 py-2 gap-5 border rounded-2xl  text-lg mt-1 mb-1 ms-2 mr-2 hover:text-sidebar-primary`}
                   key={menu.name}>
                   {menu.icon && (
                     <Image src={menu.icon} alt={menu.name} className="w-6 h-6 text-sidebar-primary" />

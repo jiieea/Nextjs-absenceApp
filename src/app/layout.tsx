@@ -18,17 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="icon" href="/favicon.png" /> 
-        <Wrapper >
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-           {children}
-          </ThemeProvider>
-        </Wrapper>
+      <link rel="icon" href="/favicon.png" />
+      <Wrapper >
+        {children}
+      </Wrapper>
     </html>
   );
 }
