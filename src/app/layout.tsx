@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Wrapper from "./_components/organisms/wrapper/Wrapper";
-import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: 'absensi.ku',

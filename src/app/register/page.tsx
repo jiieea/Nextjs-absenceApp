@@ -7,7 +7,7 @@ import { Banner2 } from '../_assets/images';
 import Link from 'next/link';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '@/lib/firebaseClient';
-import { collection, doc, getDocs, setDoc  } from 'firebase/firestore';
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import Modal from '../_components/molecule/modal/modal';
 import { useRouter } from 'next/navigation';
 import Loader from '../_components/molecule/Loader';
@@ -29,17 +29,17 @@ const RegisterPage = () => {
     e.preventDefault();
     setLoading(true);
 
-       // check if the name exist , if exist , update error state
-       const fetchData = await getDocs(collection(db , 'users'));
-       const userName = Array.from(new Set(fetchData.docs.map((user) => user.data().name)));
-       console.log(userName)
-       for (const uName of userName) {
-         if(name === uName) {
-           setError("Nama Sudah Ada")
-           setLoading(false)
-           return;
-         }
-       }
+    // check if the name exist , if exist , update error state
+    const fetchData = await getDocs(collection(db, 'users'));
+    const userName = Array.from(new Set(fetchData.docs.map((user) => user.data().name)));
+    console.log(userName)
+    for (const uName of userName) {
+      if (name === uName) {
+        setError("Nama Sudah Ada")
+        setLoading(false)
+        return;
+      }
+    }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
@@ -67,12 +67,12 @@ const RegisterPage = () => {
   return (
     <>
       <div className='w-screen h-screen flex justify-between '>
-        <div className='w-2/5 flex flex-col h-full p-16 gap-16 md:gap-2 '>
-          <div className='flex items-center  gap-4 md:w-xs'>
-            <Image src={Logo} alt='logo' className='lg:w-28 md:w-20' />
+        <div className='md:w-2/5 md:flex md:flex-col md:h-full md:p-16 gap-16 md:gap-1  lg:space-y-4 2xl:space-y-6 w-screen h-screen '>
+          <div className='md:flex md:items-center  gap-4 md:w-xs  grid place-items-center'>
+            <Image src={Logo} alt='logo' width={100} className='lg:w-28 md:w-20' />
             <div className="flex-col">
               <p className='font-bold lg:text-3xl text-primary  md:text-2xl'>Absensi-Ku</p>
-              <p className='text-disable font-bold '>Absensi Cepat, Kuliah Lancar! </p>
+              <p className='text-disable font-bold  md:block hidden'>Absensi Cepat, Kuliah Lancar! </p>
             </div>
           </div>
           {/* form input  */}
@@ -133,7 +133,11 @@ const RegisterPage = () => {
           </form>
         </div>
         {/* image banner */}
-        <Image src={Banner2} alt='signup-banner' width={1300} className='h-full object-cover md:w-2/3' />
+        <Image src={Banner2}
+          alt='signup-banner'
+          width={1500}
+          className='hidden md:block md:h-full md:object-cover md:w-2/3 
+             xl:h-full xl:object-cover xl:w-2/3 2xl:h-full 2xl:object-cover 2xl:w-2/3'/>
       </div>
 
       <Modal

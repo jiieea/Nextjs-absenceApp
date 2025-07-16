@@ -66,21 +66,21 @@ const LoginPage = () => {
   }
   return (
     <div className='w-screen h-screen flex justify-between '>
-      <div className='w-2/6 flex flex-col h-full p-16 gap-16 md:gap-1  lg:space-y-4 2xl:space-y-6'>
-        <div className='flex items-center  gap-4 md:w-xs'>
-          <Image src={Logo} alt='logo' className='lg:w-28 md:w-20' />
+      <div className='md:w-2/6 md:flex md:flex-col md:h-full md:p-16 gap-16 md:gap-1  lg:space-y-4 2xl:space-y-6 w-full'>
+        <div className='md:flex  gap-1 md:w-xs grid place-items-center md:gap-5'>
+          <Image src={Logo} alt='logo' width={150} className='xl:w-[150px] w-[4rem] mt-5 md:mt-0 ' />
           <div className="flex-col">
-            <p className='font-bold lg:text-3xl text-primary  md:text-lg'>Absensi-Ku</p>
-            <p className='text-disable font-bold '>Absensi Cepat, Kuliah Lancar! </p>
+            <p className='font-bold lg:text-3xl text-primary  md:text-lg sm:text-[1rem] text-[1.2em]'>Absensi-Ku</p>
+            <p className=' md:text-disable md:font-bold md:block hidden md:text-[1rem]'>Absensi Cepat, Kuliah Lancar! </p>
           </div>
         </div>
         {/* form input  */}
-        <form onSubmit={handleLogin} className=' mt-5 2xl:mt-16 '>
+        <form onSubmit={handleLogin} className=' mt-5 2xl:mt-16  '>
           <div className='xl:mb-3.5 md:mb-1'>
-            <h1 className='font-bold lg:text-2xl mt-3 text-pseudo-disable md:mt-1 '>Masuk <br /> ke Absensi.ku</h1>
+            <h1 className='font-bold lg:text-2xl mt-3 text-pseudo-disable md:mt-1 md:block hidden '>Masuk <br /> ke Absensi.ku</h1>
           </div>
           {/* input  */}
-          <div className="flex flex-col gap-2 mb-3">
+          <div className="flex flex-col gap-2 mb-3 md:p-0 p-3">
             <label htmlFor="email" className='lg: text-normal text-primary font-bold '>Email</label>
             <input
               type="email"
@@ -91,7 +91,7 @@ const LoginPage = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-2 mb-3">
+          <div className="flex flex-col gap-2 mb-3 md:p-0 p-3">
             <label htmlFor="email" className='text-primary font-bold text-normal'>Password</label>
             <input
               type="password"
@@ -103,12 +103,12 @@ const LoginPage = () => {
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
-          {error && <p className="text-error text-sm">{error}</p>}
+          {error && <p className="text-error text-sm p-3">{error}</p>}
           <div className="flex flex-col gap-2 ">
             <button
               className={
-                failed >= 3 ? " cursor-not-allowed bg-primary rounded-2xl lg:py-3 lg:px-4  lg:mt-5 text-white font-bold  md:mt-0.5 md:py-3 md:px-2" 
-                : 'bg-primary rounded-2xl lg:py-3 lg:px-4  lg:mt-5 text-white font-bold  md:mt-0.5 md:py-3 md:px-2 cursor-pointer'
+                failed >= 3 ? " cursor-not-allowed bg-primary rounded-2xl lg:py-3 lg:px-4  lg:mt-5 text-white font-bold  md:mt-0.5 md:py-3 md:px-2"
+                  : 'bg-primary md:rounded-md lg:py-3 lg:px-4  lg:mt-5 text-white font-bold  md:mt-0.5 md:py-3 md:px-2 cursor-pointer  py-3  m-2  md:m-0 rounded-2xl '
               }
               type='submit'
             >
@@ -121,12 +121,18 @@ const LoginPage = () => {
               }
             </button>
           </div>
-          <h3 className=' mt-3 ' >Belum Punya Akun ? <Link href="/register" className='text-primary font-bold'>daftar</Link></h3>
+          <h3 className=' mt-3 p-3 ' >Belum Punya Akun ? <Link href="/register" className='text-primary font-bold'>daftar</Link></h3>
         </form>
         <Toaster richColors position='top-center' />
       </div>
       {/* image banner */}
-      <Image src={Banner1} alt='signup-banner' width={1500} className='h-full object-cover md:w-2/3' />
+      <Image
+        src={Banner1}
+        alt='signup-banner'
+        width={1500}
+        className='hidden md:block md:h-full md:object-cover md:w-2/3 
+             xl:h-full xl:object-cover xl:w-2/3 2xl:h-full 2xl:object-cover 2xl:w-2/3'
+      />
     </div>
   )
 }
