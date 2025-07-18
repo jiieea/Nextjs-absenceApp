@@ -80,13 +80,13 @@ function Sidebar() {
         },
       ],
     },
-  ];
+]
 
   return (
     <>
       <div className="h-screen w-64 font-normal  fixed py-8 top-20 
-      bg-sidebar
-      left-0 flex flex-col gap-10 overflow-y-auto">
+      bg-sidebar hidden
+      left-0 md:flex flex-col gap-10 overflow-y-auto">
         {itemsMenu.map((item) => (
           <div className="flex flex-col transition-colors" key={item.category}>
 

@@ -114,24 +114,25 @@ const Dashboard = () => {
   };
 
   return (
-    <div className='p-10 max-w-2xl space-y-7'>
-      <h1 className="text-pseudo-disable text-2xl">Rekap Kehadiran Siswa</h1>
-      <div className="flex flex-col md:flex-row gap-3.5 mt-4 space-y">
+    <div className='md:p-10 p-3.5 md:max-w-2xl space-y-7 flex justify-center flex-col md:relative   w-screen absolute right-1'>
+      <h1 className="text-pseudo-disable text-[1.5rem]  md:text-2xl">Rekap Kehadiran Mahasiswa</h1>
+      <div className="flex flex-col md:flex-row gap-3.5 mt- space-y md:mt-4">
         {/* date input */}
-        <div className="flex flex-col space-y-2">
+        <div className="md:flex md:flex-col space-y-2 w-[300px] p-2">
           <Label className='text-primary font-bold '>Pilih Tanggal</Label>
             <Input type="date" placeholder='pilih tanggal' 
-              className='border-1 border-secondary  rounded-xl border-opacity-25 p-1.5 placeholder: font-light  w-40 outline-none   '
+              className='border-1 border-secondary  rounded-xl border-opacity-25
+               p-2 placeholder: font-light w-full md:w-40 outline-none   '
               max={today}
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
           />
         </div>
 
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-2 p-2 ">
           <Label className='text-primary font-bold '>Pilih Kelas</Label>
           <Select value={selectedGrade} onValueChange={handleGradeChanges} disabled={!selectedDate}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] border">
               <SelectValue placeholder="Pilih Kelas" />
             </SelectTrigger>
             <SelectContent>

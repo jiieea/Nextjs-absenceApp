@@ -68,17 +68,17 @@ const RegisterPage = () => {
     <>
       <div className='w-screen h-screen flex justify-between '>
         <div className='md:w-2/5 md:flex md:flex-col md:h-full md:p-16 gap-16 md:gap-1  lg:space-y-4 2xl:space-y-6 w-screen h-screen '>
-          <div className='md:flex md:items-center  gap-4 md:w-xs  grid place-items-center'>
+          <div className='md:flex md:items-center  md:gap-5 md:w-xs  grid place-items-center gap-1'>
             <Image src={Logo} alt='logo' width={100} className='lg:w-28 md:w-20' />
             <div className="flex-col">
-              <p className='font-bold lg:text-3xl text-primary  md:text-2xl'>Absensi-Ku</p>
+              <p className='font-bold lg:text-3xl text-primary  md:text-2xl text-[1.5em]'>Absensi-Ku</p>
               <p className='text-disable font-bold  md:block hidden'>Absensi Cepat, Kuliah Lancar! </p>
             </div>
           </div>
           {/* form input  */}
-          <form onSubmit={handleSubmitButton} className='mt-16 md:mt-1'>
+          <form onSubmit={handleSubmitButton} className='md:mt-16 mt-3 p-3'>
             <div className='xl:mb-3.5 md:mb-1'>
-              <h1 className='font-bold lg:text-2xl text-pseudo-disable md:text-base '>Daftar <br /> ke Absensi.ku</h1>
+              <h1 className='font-bold lg:text-2xl text-pseudo-disable md:text-base hidden  md:block'>Daftar <br /> ke Absensi.ku</h1>
             </div>
             {/* input  */}
             <div className='flex flex-col gap-4 mb-3 '>
@@ -88,7 +88,7 @@ const RegisterPage = () => {
                 placeholder='masukan nama anda ..'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="lg:border px-4 py-3  border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm
+                className="lg:border px-4 py-3 border  border-disable rounded-lg placeholder:text-disable placeholder:font-light text-sm
                 md:px-3 md:py-2
                 " />
             </div>
@@ -96,7 +96,7 @@ const RegisterPage = () => {
               <label htmlFor="email" className='lg: text-normal text-primary font-bold '>Email</label>
               <input
                 type="email"
-                className="lg:border px-5 py-3   md:px-3 md:py-2 w-full border-disable rounded-lg 
+                className="lg:border px-5 py-3  border md:px-3 md:py-2 w-full border-disable rounded-lg 
                  placeholder:text-disable placeholder:font-light text-sm  "
                 placeholder='masukan email  '
                 value={email}
@@ -104,7 +104,7 @@ const RegisterPage = () => {
               />
             </div>
             <div className="flex flex-col gap-2 mb-3">
-              <label htmlFor="email" className='text-primary font-bold text-normal'>Password</label>
+              <label htmlFor="password" className='text-primary font-bold text-normal'>Password</label>
               <input
                 type="password"
                 className="border px-4 py-3 w-full   md:px-3 md:py-2
