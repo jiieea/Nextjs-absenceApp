@@ -17,11 +17,12 @@ interface AttendanceStudent {
 }
 export function TableDemo({ attendance }: { attendance: AttendanceStudent[] }): React.JSX.Element {
     return (
-        <Table>
+        <div className='overflow-x-scroll  md:overflow-x-hidden'>
+            <Table >
             <TableHeader>
                 <TableRow>
-                    <TableHead className="w-[100px]">Nama</TableHead>
-                    <TableHead>NPM</TableHead>
+                    <TableHead  className='w-[50px] md:w-[100px]'>Nama</TableHead>
+                    <TableHead >NPM</TableHead>
                     <TableHead>Kelas</TableHead>
                     <TableHead >Status</TableHead>
                 </TableRow>
@@ -29,7 +30,7 @@ export function TableDemo({ attendance }: { attendance: AttendanceStudent[] }): 
             <TableBody>
                 {attendance.map((std) => (
                     <TableRow key={std.npm}>
-                        <TableCell className="font-medium">{std.name}</TableCell>
+                        <TableCell className="font-medium  truncate">{std.name}</TableCell>
                         <TableCell>{std.npm}</TableCell>
                         <TableCell>{std.grade}</TableCell>
                         <TableCell className={
@@ -44,6 +45,7 @@ export function TableDemo({ attendance }: { attendance: AttendanceStudent[] }): 
             </TableBody>
 
         </Table>
+        </div>
     )
 }
 

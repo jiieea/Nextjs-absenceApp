@@ -132,7 +132,7 @@ const Dashboard = () => {
         <div className="flex flex-col space-y-2 p-2 ">
           <Label className='text-primary font-bold '>Pilih Kelas</Label>
           <Select value={selectedGrade} onValueChange={handleGradeChanges} disabled={!selectedDate}>
-            <SelectTrigger className="w-[180px] border">
+            <SelectTrigger className="w-[180px] border rounded-md">
               <SelectValue placeholder="Pilih Kelas" />
             </SelectTrigger>
             <SelectContent>

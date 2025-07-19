@@ -129,7 +129,7 @@ if(!student) {
 
   return (
     <div className="w-full h-full">
-      <form action="" className='p-10 max-w-md space-y-6' onSubmit={handleSubmitButton}>
+      <form action="" className='md:p-10 max-w-md md:space-y-6  absolute right-1 md:relative p-3  space-y-8 mt-3 md:mt-0' onSubmit={handleSubmitButton}>
         <h2 className='text-pseudo-disable font-semibold lg:text-2xl md:text-lg'>Input Kehadiran Mahasiswa</h2>
         {/* pilih kelas mahasiswa */}
         <div className="max-w-2/5 flex flex-col gap-4 ">

@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select"
 import { toast, Toaster } from 'sonner';
 import { Button } from '@/components/ui/button';
- const kelasMahasiswa = ["RZ", "RY", "RW", "RU"];
+const kelasMahasiswa = ["RZ", "RY", "RW", "RU"];
 const Attendance = () => {
   const router = useRouter()
   const [grade, setGrade] = useState("");
@@ -27,7 +27,7 @@ const Attendance = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("");
 
-  const handleValueChanges = (newValue : string) => {
+  const handleValueChanges = (newValue: string) => {
     setGrade(newValue);
   }
 
@@ -67,7 +67,7 @@ const Attendance = () => {
       setPhone("");
       setNpm("")
       toast.success("Berhasil Tambah Mahasiwa")
-    } catch  {
+    } catch {
       if (!npm && !grade && !name) {
         setError("Data Harus Diisi")
       }
@@ -79,7 +79,7 @@ const Attendance = () => {
 
   return (
     <div className='w-full h-full'>
-      <form className='p-10 max-w-md space-y-4' onSubmit={handleSubmitData}>
+      <form className='md:p-10 max-w-md space-y-4 absolute right-1 md:relative p-2'   onSubmit={handleSubmitData}>
         <h1 className='font-semibold g:text-2xl md:text-lg text-disable'>Tambah Data Mahasiswa Baru</h1>
         <div className="flex flex-col gap-3 space-y-3 w-full">
           <Label htmlFor="name" className='text-primary font-semibold '>Nama Mahasiswa</Label>
@@ -88,26 +88,27 @@ const Attendance = () => {
             value={name}
             onChange={(event) => setName(event.target.value)}
             id="name"
-            className='px-4 py-3'
+            className='px-4 py-3 border border-accent-foreground'
             placeholder="Masukan nama mahasiswa" />
           <Label htmlFor="npm"
             className='text-primary font-semibold'>NPM </Label>
           <Input
             type="number"
+             className='px-4 py-3 border border-accent-foreground'
             value={npm}
             onChange={(event) => setNpm(event.target.value)}
             id="npm"
             placeholder="Masukan NPM Mahasiswa" />
           <Label htmlFor='kelas'
             className='text-primary font-semibold'>Kelas</Label>
-          <Select value={ grade } onValueChange={ handleValueChanges }>
-            <SelectTrigger className="w-[350px]" >
+          <Select value={grade} onValueChange={handleValueChanges}>
+            <SelectTrigger className="w-[350px]  px-4 py-3 border border-accent-foreground" >
               <SelectValue placeholder="Pilih Kelas " />
             </SelectTrigger>
             <SelectContent>
               {
                 kelasMahasiswa?.map((cls) => (
-                  <SelectItem value={cls} key={cls}>{ cls }</SelectItem>
+                  <SelectItem value={cls} key={cls}>{cls}</SelectItem>
                 ))
               }
             </SelectContent>
@@ -120,7 +121,7 @@ const Attendance = () => {
             placeholder='Awali dengan angka 0'
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className='px-4 py-3'
+             className='px-4 py-3 border border-accent-foreground'
           />
         </div>
         {
@@ -133,9 +134,9 @@ const Attendance = () => {
             loading ? "Mohon Tunggu" : "Tambah Data"
           }
         </Button>
-          
+
       </form>
-      <Toaster  richColors position='top-center'/>
+      <Toaster richColors position='top-center' />
       <Modal
         title='Berhasil'
         content='Berhasil Tambah Data Baru'

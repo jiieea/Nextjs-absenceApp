@@ -42,8 +42,8 @@ export function SidebarMobile() {
             deleteCookie('token' , {path: '/'});
             router.push('/login');
             toast.success('Berhasil Logout');
-        } catch (error : unknown) {
-            toast.error('Logout gagal' , (error as Error).message);
+        } catch (error : any) {
+            toast.error('Logout gagal' , error);
         }
     }
     const itemsMenu = [
@@ -91,7 +91,7 @@ export function SidebarMobile() {
             <SheetTrigger asChild>
                 <Button variant="ghost" className="md:hidden absolute left-1"><FaAlignJustify /></Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[350px] bg-white">
+            <SheetContent side="left" className="md:w-[350px] bg-white ">
                 <SheetHeader>
                 </SheetHeader>
                 <div className="flex flex-col gap-y-5">
