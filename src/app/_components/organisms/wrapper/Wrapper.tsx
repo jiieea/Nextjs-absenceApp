@@ -4,6 +4,7 @@ import Header from '../../molecule/header/header';
 import { usePathname } from 'next/navigation';
 import { publicPaths } from '@/middleware';
 import Sidebar from '../../molecule/sidebar/Sidebar';
+import { SidebarMobile } from '../../molecule/sheet/Trigger';
 
 interface WrapperProps {
   children: React.ReactNode;

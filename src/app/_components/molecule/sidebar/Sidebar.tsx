@@ -41,7 +41,7 @@ function Sidebar() {
     setShowLogoutModal(false);
   };
 
-  const itemsMenu = [
+const itemsMenu = [
     {
       category: 'Administrasi',
       items: [
