@@ -10,11 +10,9 @@ import {
     SheetContent,
     SheetFooter,
     SheetHeader,
-    SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { FaAlignJustify } from "react-icons/fa"
-import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { signOut } from 'firebase/auth';
@@ -27,14 +25,6 @@ import { toast } from 'sonner';
 export function SidebarMobile() {
     const pathname = usePathname();
     const router = useRouter();
-    const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-    const handleLogoutModal = () => {
-        setShowLogoutModal(true);
-    }
-
-
-
     // handle user logout
     const handleLogout = async() => {
         try {
@@ -42,8 +32,10 @@ export function SidebarMobile() {
             deleteCookie('token' , {path: '/'});
             router.push('/login');
             toast.success('Berhasil Logout');
-        } catch (error : any) {
-            toast.error('Logout gagal' , error);
+        } catch (error : unknown) {
+            if(error instanceof Error) {
+                toast.error("Logout Gagal");
+            }
         }
     }
     const itemsMenu = [
@@ -81,7 +73,6 @@ export function SidebarMobile() {
                     href: '',
                     icon: LogoutIcon,
                     type: 'button',
-                    function: handleLogoutModal,
                 },
             ],
         },
