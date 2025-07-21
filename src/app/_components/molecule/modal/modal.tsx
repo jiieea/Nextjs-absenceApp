@@ -33,7 +33,7 @@ function Modal(props: Readonly<ModalProps>) {
       className="flex items-center justify-center fixed top-0 left-0 w-screen h-screen z-50"
       style={{ display: isOpen ? 'flex' : 'none' }}>
       <div className="w-screen h-screen fixed top-0 left-0 bg-duniakoding-primary opacity-70 z-40 flex items-center justify-center"></div>
-      <div className="bg-accent rounded-lg shadow-lg p-6 md:w-96 flex flex-col items-center z-50  w-75 h-65">
+      <div className="bg-accent rounded-lg shadow-lg p-6 md:w-96 flex flex-col items-center z-50  w-75 h-65 md:h-90">
         <ModalIcon type={type} />
         <h2 className="text-xl font-bold mb-2">{title}</h2>
         <p className="mb-4 text-disable text-center font-normal">{content}</p>

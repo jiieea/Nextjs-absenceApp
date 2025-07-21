@@ -39,6 +39,7 @@ const RegisterPage = () => {
         setLoading(false)
         return;
       }
+
     }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -47,10 +48,16 @@ const RegisterPage = () => {
       await updateProfile(userCredential.user, {
         displayName: name
       });
-      await setDoc(doc(db, 'users', uid), {
+      const userDocRef = doc(db, `users`, uid);
+      // Create or update the user document in Firestore
+      // with the user's UID, name, email, and role
+
+      await setDoc(userDocRef, {
         name,
         email,
-        role: 'guru'
+        role: 'guru',
+        createdAt: new Date().toISOString(), // Store the creation date
+        updatedAt: new Date().toISOString() // Store the last update date
       });
       setShowModal(true);
       setName('');
@@ -69,7 +76,8 @@ const RegisterPage = () => {
       <div className='w-screen h-screen flex justify-between '>
         <div className='md:w-2/5 md:flex md:flex-col md:h-full md:p-16 gap-16 md:gap-1  lg:space-y-4 2xl:space-y-6 w-screen h-screen '>
           <div className='md:flex md:items-center  md:gap-5 md:w-xs  grid place-items-center gap-1'>
-            <Image src={Logo} alt='logo' width={100} className='lg:w-28 md:w-20' />
+            <Image src={Logo} alt='logo' width={100} className='lg:w-28 md:w-20 
+            ' />
             <div className="flex-col">
               <p className='font-bold lg:text-3xl text-primary  md:text-2xl text-[1.5em]'>Absensi-Ku</p>
               <p className='text-disable font-bold  md:block hidden'>Absensi Cepat, Kuliah Lancar! </p>
