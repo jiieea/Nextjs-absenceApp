@@ -88,13 +88,13 @@ const Attendance = () => {
             value={name}
             onChange={(event) => setName(event.target.value)}
             id="name"
-            className='px-4 py-3 border border-accent-foreground'
+            className='px-4 py-3 border border-neutral-600'
             placeholder="Masukan nama mahasiswa" />
           <Label htmlFor="npm"
             className='text-primary font-semibold'>NPM </Label>
           <Input
             type="number"
-             className='px-4 py-3 border border-accent-foreground'
+             className='px-4 py-3 border border-neutral-600'
             value={npm}
             onChange={(event) => setNpm(event.target.value)}
             id="npm"
@@ -102,7 +102,7 @@ const Attendance = () => {
           <Label htmlFor='kelas'
             className='text-primary font-semibold'>Kelas</Label>
           <Select value={grade} onValueChange={handleValueChanges}>
-            <SelectTrigger className="w-[350px]  px-4 py-3 border border-accent-foreground" >
+            <SelectTrigger className="w-[350px]  px-4 py-3 border border-neutral-600" >
               <SelectValue placeholder="Pilih Kelas " />
             </SelectTrigger>
             <SelectContent>
@@ -121,7 +121,7 @@ const Attendance = () => {
             placeholder='Awali dengan angka 0'
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-             className='px-4 py-3 border border-accent-foreground'
+             className='px-4 py-3 border border-neutral-600'
           />
         </div>
         {

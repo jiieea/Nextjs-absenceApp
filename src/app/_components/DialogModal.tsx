@@ -1,3 +1,4 @@
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -24,6 +25,7 @@ export function DialogModal({
                    text-start transition-colors px-5 py-3 gap-3  text-lg ">Show Dialog</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
+                
                 <AlertDialogHeader>
                     <AlertDialogTitle>Apakah anda yakin untuk keluar?</AlertDialogTitle>
                 </AlertDialogHeader>

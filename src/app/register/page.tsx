@@ -1,81 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import Image from 'next/image';
-import React, { useState } from 'react';
 import { Logo } from '../_assets/icons';
 import { Banner2 } from '../_assets/images';
 import Link from 'next/link';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth, db } from '@/lib/firebaseClient';
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import Modal from '../_components/molecule/modal/modal';
-import { useRouter } from 'next/navigation';
 import Loader from '../_components/molecule/Loader';
-import { errorMsg } from '@/lib/errorMsg';
-
+import useHandleRegister from '@/hook/useHandleRegister';
+import { useRouter } from 'next/navigation';
 
 const RegisterPage = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState('');
-  const [showModal, setShowModal] = useState(false)
-
+  const {
+    email,
+    password,
+    name,
+    setEmail,
+    setPassword,
+    setName,
+    loading,
+    error,
+    showModal,
+    setShowModal,
+    handleRegister
+  } = useHandleRegister();
 
   // handle button submit
-  const handleSubmitButton = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    // check if the name exist , if exist , update error state
-    const fetchData = await getDocs(collection(db, 'users'));
-    const userName = Array.from(new Set(fetchData.docs.map((user) => user.data().name)));
-    console.log(userName)
-    for (const uName of userName) {
-      if (name === uName) {
-        setError("Nama Sudah Ada")
-        setLoading(false)
-        return;
-      }
-
-    }
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const uid = userCredential.user.uid;
-
-      await updateProfile(userCredential.user, {
-        displayName: name
-      });
-      const userDocRef = doc(db, `users`, uid);
-      // Create or update the user document in Firestore
-      // with the user's UID, name, email, and role
-
-      await setDoc(userDocRef, {
-        name,
-        email,
-        role: 'guru',
-        createdAt: new Date().toISOString(), // Store the creation date
-        updatedAt: new Date().toISOString() // Store the last update date
-      });
-      setShowModal(true);
-      setName('');
-      setEmail('');
-      setPassword('');
-    } catch (e: any) {
-      const err = errorMsg(e.message);
-      if (err && err[1])
-        setError(err[1])
-    } finally {
-      setLoading(false)
-    }
-  }
+  
   return (
     <>
       <div className='w-screen h-screen flex justify-between '>
-        <div className='md:w-2/5 md:flex md:flex-col md:h-full md:p-16 gap-16 md:gap-1  lg:space-y-4 2xl:space-y-6 w-screen h-screen '>
-          <div className='md:flex md:items-center  md:gap-5 md:w-xs  grid place-items-center gap-1'>
+        <div className='md:w-2/5 md:flex md:flex-col md:h-full md:p-16 gap-y-5 md:gap-1  lg:space-y-4 2xl:space-y-6 w-screen h-screen '>
+          <div className='md:flex md:items-center  md:gap-5 md:w-xs  grid place-items-center gap-1 '>
             <Image src={Logo} alt='logo' width={100} className='lg:w-28 md:w-20 
             ' />
             <div className="flex-col">
@@ -84,7 +40,7 @@ const RegisterPage = () => {
             </div>
           </div>
           {/* form input  */}
-          <form onSubmit={handleSubmitButton} className='md:mt-16 mt-3 p-3'>
+          <form onSubmit={handleRegister} className='mt-2 2xl:mt-16 '>
             <div className='xl:mb-3.5 md:mb-1'>
               <h1 className='font-bold lg:text-2xl text-pseudo-disable md:text-base hidden  md:block'>Daftar <br /> ke Absensi.ku</h1>
             </div>
