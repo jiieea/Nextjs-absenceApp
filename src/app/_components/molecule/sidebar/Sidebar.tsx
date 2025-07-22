@@ -6,40 +6,21 @@ import {
   LogoutIcon,
   RegisterIcon
 } from '@/app/_assets/icons';
-import { auth } from '@/lib/firebaseClient';
-import { deleteCookie } from 'cookies-next';
-import { signOut } from 'firebase/auth';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Modal from '../modal/modal';
 import Image from 'next/image';
-import { toast } from 'sonner';
 import { Toaster } from '@/components/ui/sonner';
+import useHandleLogout from '@/hook/useHandleLogout';
 function Sidebar() {
   const pathname = usePathname();
-  const router = useRouter();
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      deleteCookie('token', { path: '/' });
-      handleCloseLogoutModal();
-      router.push('/login');
-      toast.success("Berhasil Logout")
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
-
-  const handleShowLogoutModal = () => {
-    setShowLogoutModal(true);
-  };
-
-  const handleCloseLogoutModal = () => {
-    setShowLogoutModal(false);
-  };
+  const {
+    showLogoutModal ,
+    handleShowLogoutModal,
+    handleCloseLogoutModal,
+    confirmLogout
+  } = useHandleLogout();
 
 const itemsMenu = [
     {
@@ -128,8 +109,8 @@ const itemsMenu = [
         buttonType1="primary"
         buttonText2="Tidak"
         buttonType2="secondary"
-        onConfirm={handleLogout}
-        onClose={() => setShowLogoutModal(false)}
+        onConfirm={confirmLogout}
+        onClose={ handleCloseLogoutModal}
       />
       <Toaster richColors position='top-center' />
     </>

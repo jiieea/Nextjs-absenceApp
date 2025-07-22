@@ -1,6 +1,7 @@
 import { auth, db } from "@/lib/firebaseClient";
-import { UserCredential, AuthError, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; 
+import { deleteCookie } from "cookies-next";
+import { UserCredential, AuthError, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 interface AuthResult {
   success: boolean;
   user?: UserCredential['user'];
@@ -43,14 +44,14 @@ export const loginWithEmail = {
       }
     }
   },
-  async register(email : string , password: string, name: string): Promise<AuthResult> {
+  async register(email: string, password: string, name: string): Promise<AuthResult> {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(userCredential.user , {
-        displayName  : name
+      await updateProfile(userCredential.user, {
+        displayName: name
       });
-      const userDocRef = doc(db, 'users' , userCredential.user.uid);
-      await setDoc(userDocRef , {
+      const userDocRef = doc(db, 'users', userCredential.user.uid);
+      await setDoc(userDocRef, {
         email,
         name,
         role: 'guru',
@@ -60,12 +61,27 @@ export const loginWithEmail = {
         success: true,
         user: userCredential.user
       }
-    }catch (error) {
+    } catch (error) {
       return {
         success: false,
         error: getErrorMessage(error as AuthError)
       }
     }
-},
-//  TODO : handle Logout
+  },
+  //  TODO : handle Logout
+  async logout(): Promise<{success : boolean , error ?: string}> {
+    try {
+      await signOut(auth);
+      deleteCookie('token', { path: '/' });
+      return {
+        success: true,
+      }
+    } catch {
+      return {
+        success: false,
+        error: 'Gagal logout. Silakan coba lagi.'
+      }
+    }
+
+  }
 }
